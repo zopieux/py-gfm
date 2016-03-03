@@ -4,7 +4,7 @@
 # BSD-style license that can be found in the LICENSE file.
 
 from __future__ import unicode_literals
-import optparse
+import argparse
 import os
 import sys
 
@@ -22,21 +22,16 @@ try:
 except ImportError:
     from unittest2 import loader
 
-USAGE = """%prog
-Run unit tests."""
+parser = argparse.ArgumentParser("Run unit tests.")
+parser.add_argument('-n', '--name', help='the name of the test to run',
+                    metavar='NAME')
 
-parser = optparse.OptionParser(USAGE)
-parser.add_option('-n', '--name', help='the name of the test to run',
-                  metavar='NAME')
-
-options, args = parser.parse_args()
-sdk_path = None
-if len(args) > 0:
-    print('Error: 0 arguments expected.')
-    parser.print_help()
-    sys.exit(1)
+args = parser.parse_args()
 
 test_path = os.path.join(os.path.dirname(__file__), 'tests')
 test_loader = loader.TestLoader()
-if options.name: test_loader.testMethodPrefix = options.name
-TextTestRunner(verbosity = 2).run(test_loader.discover(test_path))
+if args.name:
+    test_loader.testMethodPrefix = args.name
+
+result = TextTestRunner(verbosity=2).run(test_loader.discover(test_path))
+sys.exit(len(result.errors) + len(result.failures))
