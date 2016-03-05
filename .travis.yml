@@ -14,4 +14,3 @@ install:
   - pip install .
 
 script: python test.py
-
