@@ -1,4 +1,6 @@
-# GitHub-Flavored markdown for Python
+# GitHub-Flavored Markdown for Python
+
+[![Build status](https://travis-ci.org/Zopieux/py-gfm.svg?branch=master)](https://travis-ci.org/Zopieux/py-gfm)
 
 This is an implementation of [GitHub-Flavored Markdown][gfm] written as an
 extension to the Python [Markdown][md] library. It aims for maximal
