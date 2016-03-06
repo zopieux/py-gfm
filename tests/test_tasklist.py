@@ -1,9 +1,11 @@
+# coding: utf-8
 # Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
-import gfm
+from __future__ import unicode_literals
 
+import gfm
 from test_case import TestCase
 
 
@@ -14,12 +16,16 @@ class TestTaskList(TestCase):
         self.tasklist_patterns = gfm.TaskListExtension(checked=['~o', '[o]'],
                                                        unchecked=['~', '[ ]'])
         self.tasklist_max_depth = gfm.TaskListExtension(max_depth=2)
-        self.tasklist_item_attrs = gfm.TaskListExtension(item_attrs={'class': 'foo'})
-        self.tasklist_box_attrs = gfm.TaskListExtension(checkbox_attrs={'name': 'foo'})
+        self.tasklist_item_attrs = gfm.TaskListExtension(
+            item_attrs={'class': 'foo'})
+        self.tasklist_box_attrs = gfm.TaskListExtension(
+            checkbox_attrs={'name': 'foo'})
 
         def custom(parent, li):
             return {'data-foo': li.text.split('=')[1]}
-        self.tasklist_box_attrs_cb = gfm.TaskListExtension(checkbox_attrs=custom)
+
+        self.tasklist_box_attrs_cb = gfm.TaskListExtension(
+            checkbox_attrs=custom)
 
     def test_tasklist_nolist(self):
         self.assert_renders("""

@@ -1,3 +1,4 @@
+# coding: utf-8
 # Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
@@ -36,7 +37,8 @@ class TaskListProcessor(Treeprocessor):
 
         checked_pattern = _to_list(self.ext.getConfig('checked'))
         unchecked_pattern = _to_list(self.ext.getConfig('unchecked'))
-        prefix_length = reduce(max, (len(e) for e in checked_pattern + unchecked_pattern))
+        prefix_length = reduce(max, (len(e) for e in checked_pattern +
+                                     unchecked_pattern))
 
         item_attrs = self.ext.getConfig('item_attrs')
         base_cb_attrs = self.ext.getConfig('checkbox_attrs')
@@ -49,7 +51,9 @@ class TaskListProcessor(Treeprocessor):
         while stack:
             el, parent, depth = stack.pop()
 
-            if parent and el.tag == 'li' and (parent.tag == 'ul' and unordered or parent.tag == 'ol' and ordered):
+            if (parent and el.tag == 'li' and
+                    (parent.tag == 'ul' and unordered or
+                     parent.tag == 'ol' and ordered)):
                 depth += 1
                 text = (el.text or '').lstrip()
                 lower_text = text[:prefix_length].lower()
@@ -74,13 +78,17 @@ class TaskListProcessor(Treeprocessor):
                     if checked:
                         attrs['checked'] = 'checked'
                     # Give user a chance to update attributes
-                    attrs.update(base_cb_attrs(parent, el) if callable(base_cb_attrs) else base_cb_attrs)
+                    attrs.update(base_cb_attrs(parent, el)
+                                 if callable(base_cb_attrs)
+                                 else base_cb_attrs)
                     checkbox = etree.Element('input', attrs)
                     checkbox.tail = text
                     el.text = ''
                     el.insert(0, checkbox)
                     # Give user a chance to update <li> attributes
-                    for k, v in (item_attrs(parent, el, checkbox) if callable(item_attrs) else item_attrs).items():
+                    for k, v in (item_attrs(parent, el, checkbox)
+                                 if callable(item_attrs)
+                                 else item_attrs).items():
                         el.set(k, v)
 
             if depth < max_depth:
@@ -143,9 +151,12 @@ class TaskListExtension(markdown.Extension):
             'unordered': [True, "Enable parsing of unordered lists"],
             'checked': ['[x]', "The checked state pattern"],
             'unchecked': ['[ ]', "The unchecked state pattern"],
-            'max_depth': [0, "Maximum list nesting depth (None for unlimited)"],
-            'item_attrs': [{}, "Additional attribute dict (or callable) to add to the <li> element"],
-            'checkbox_attrs': [{}, "Additional attribute dict (or callable) to add to the checkbox <input> element"],
+            'max_depth': [0, "Maximum list nesting depth (None for "
+                             "unlimited)"],
+            'item_attrs': [{}, "Additional attribute dict (or callable) to "
+                               "add to the <li> element"],
+            'checkbox_attrs': [{}, "Additional attribute dict (or callable) "
+                                   "to add to the checkbox <input> element"],
         }
         super(TaskListExtension, self).__init__(*args, **kwargs)
 

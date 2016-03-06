@@ -1,3 +1,4 @@
+# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
@@ -9,11 +10,14 @@ from markdown.extensions.tables import TableExtension
 
 import gfm
 
+
 def makeExtension(*args, **kwargs):
     return PartialGithubFlavoredMarkdownExtension(*args, **kwargs)
 
+
 class PartialGithubFlavoredMarkdownExtension(Extension):
-    """An extension that's as compatible as possible with GFM.
+    """
+    An extension that's as compatible as possible with GFM.
 
     This extension aims to be compatible with the variant of GFM that GitHub
     uses for Markdown-formatted gists and files (including READMEs). This
@@ -21,7 +25,8 @@ class PartialGithubFlavoredMarkdownExtension(Extension):
     documentation`_, except:
 
     - Newlines in paragraphs are not transformed into ``br`` tags.
-    - Intra-Github links to commits, repositories, and issues are not supported.
+    - Intra-Github links to commits, repositories, and issues are not
+      supported.
 
     .. _the GFM documentation: http://github.github.com/github-flavored-markdown
     """
