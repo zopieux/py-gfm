@@ -1,4 +1,7 @@
 __pycache__/
+dist/
+build/
+*.egg-info/
 *.py[cod]
 *$py.class
 .coverage
