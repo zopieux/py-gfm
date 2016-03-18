@@ -1,6 +1,7 @@
 # GitHub-Flavored Markdown for Python
 
 [![Build status](https://travis-ci.org/Zopieux/py-gfm.svg?branch=master)](https://travis-ci.org/Zopieux/py-gfm)
+[![Coverage status](https://coveralls.io/repos/github/Zopieux/py-gfm/badge.svg?branch=master)](https://coveralls.io/github/Zopieux/py-gfm?branch=master)
 
 This is an implementation of [GitHub-Flavored Markdown][gfm] written as an
 extension to the Python [Markdown][md] library. It aims for maximal
