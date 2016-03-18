@@ -17,6 +17,7 @@ setup(
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Topic :: Text Processing :: Markup',
+        'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
