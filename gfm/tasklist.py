@@ -37,6 +37,9 @@ class TaskListProcessor(Treeprocessor):
 
         checked_pattern = _to_list(self.ext.getConfig('checked'))
         unchecked_pattern = _to_list(self.ext.getConfig('unchecked'))
+        if not checked_pattern and not unchecked_pattern:
+            return root
+
         prefix_length = reduce(max, (len(e) for e in checked_pattern +
                                      unchecked_pattern))
 

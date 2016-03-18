@@ -13,8 +13,10 @@ class TestTaskList(TestCase):
     def setUp(self):
         self.tasklist = gfm.TaskListExtension()
         self.tasklist_ordered_disabled = gfm.TaskListExtension(ordered=False)
+        self.tasklist_full_disabled = gfm.TaskListExtension(ordered=False, unordered=False)
+        self.tasklist_no_marker = gfm.TaskListExtension(checked=[], unchecked=[])
         self.tasklist_patterns = gfm.TaskListExtension(checked=['~o', '[o]'],
-                                                       unchecked=['~', '[ ]'])
+                                                       unchecked=('~', '[ ]'))
         self.tasklist_max_depth = gfm.TaskListExtension(max_depth=2)
         self.tasklist_item_attrs = gfm.TaskListExtension(
             item_attrs={'class': 'foo'})
@@ -38,6 +40,38 @@ class TestTaskList(TestCase):
 
         - first item
         """, [self.tasklist])
+
+    def test_tasklist_full_disabled(self):
+        self.assert_renders("""
+        <ul>
+        <li>[ ] first item</li>
+        <li>[x] second item</li>
+        </ul>
+        <p>foo</p>
+        <ol>
+        <li>[ ] first item</li>
+        <li>[x] second item</li>
+        </ol>
+        """, """
+        - [ ] first item
+        - [x] second item
+
+        foo
+
+        1. [ ] first item
+        1. [x] second item
+        """, [self.tasklist_full_disabled])
+
+    def test_tasklist_empty(self):
+        self.assert_renders("""
+        <ul>
+        <li>[ ] first item</li>
+        <li>[x] second item</li>
+        </ul>
+        """, """
+        - [ ] first item
+        - [x] second item
+        """, [self.tasklist_no_marker])
 
     def test_tasklist_defaults(self):
         self.assert_renders("""
