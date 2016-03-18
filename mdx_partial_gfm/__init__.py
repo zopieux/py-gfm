@@ -12,7 +12,7 @@ import gfm
 
 
 def makeExtension(*args, **kwargs):
-    return PartialGithubFlavoredMarkdownExtension(*args, **kwargs)
+    return PartialGithubFlavoredMarkdownExtension(*args, **kwargs)  # noqa
 
 
 class PartialGithubFlavoredMarkdownExtension(Extension):

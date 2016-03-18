@@ -13,4 +13,9 @@ install:
   - pip install -r dev-requirements.txt
   - pip install .
 
-script: python test.py
+script:
+  - coverage run test.py
+
+after_success:
+  - codecov
+  - coveralls
