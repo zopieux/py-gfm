@@ -51,7 +51,7 @@ class TestHiddenHilite(TestCase):
         extensions = [self.hidden_hilite, 'fenced_code']
         if self.has_pygments:
             self.assert_renders("""
-        <div class="codehilite"><pre><span class="k">def</span>
+        <div class="codehilite"><pre><span></span><span class="k">def</span>
         </pre></div>
         """, test_text, extensions)
         else:
