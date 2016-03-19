@@ -1,7 +1,7 @@
 py-gfm documentation
 ====================
 
-|Build status| |Coverage status|
+|Build status| |Coverage status| |Documentation status|
 
 This is an implementation of `GitHub-Flavored Markdown`_ written as an
 extension to the Python `Markdown`_ library. It aims for maximal
@@ -126,3 +126,4 @@ Indices and tables
 
 .. |Build status| image:: https://travis-ci.org/Zopieux/py-gfm.svg?branch=master
 .. |Coverage status| image:: https://coveralls.io/repos/github/Zopieux/py-gfm/badge.svg?branch=master
+.. |Documentation status| image:: https://readthedocs.org/projects/py-gfm/badge/?version=latest
