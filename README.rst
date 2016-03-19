@@ -45,7 +45,7 @@ License
 BSD-style. See `LICENSE`_.
 
 .. _GitHub-Flavored Markdown: http://github.github.com/github-flavored-markdown/
-.. _Markdown: http://packages.python.org/Markdown/
+.. _Markdown: https://pythonhosted.org/Markdown/
 .. _LICENSE: /LICENSE
 
 .. |Build status| image:: https://travis-ci.org/Zopieux/py-gfm.svg?branch=master
