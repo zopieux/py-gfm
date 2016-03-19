@@ -3,16 +3,37 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+"""
+:mod:`gfm.hidden_hilite` -- Fenced code blocks with no highlighting
+====================================================================
+
+The :mod:`gfm.hidden_hilite` module provides an extension that allows the use
+of fenced code blocks without adding syntax highlighting or line numbers.
+
+Typical usage
+-------------
+
+.. testcode::
+
+   import markdown
+   from gfm import HiddenHiliteExtension
+
+   print(markdown.markdown("```\\nimport this\\nprint('foo')\\n```",
+                           extensions=[HiddenHiliteExtension()]))
+
+.. testoutput::
+
+   <p><code>import this
+   print('foo')</code></p>
+
+"""
+
 from markdown.extensions.codehilite import CodeHiliteExtension
 
 
 class HiddenHiliteExtension(CodeHiliteExtension):
     """
     A subclass of CodeHiliteExtension that doesn't highlight on its own.
-
-    This just enables the fenced code extension to use syntax highlighting,
-    without adding syntax highlighting or line numbers to any additional code
-    blocks.
     """
 
     def extendMarkdown(self, md, md_globals):

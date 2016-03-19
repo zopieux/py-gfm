@@ -3,6 +3,11 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+"""
+:mod:`gfm` -- Base module for GitHub-Flavored Markdown
+======================================================
+"""
+
 from gfm import autolink
 from gfm import automail
 from gfm import hidden_hilite
@@ -18,3 +23,7 @@ SemiSaneListExtension = semi_sane_lists.SemiSaneListExtension
 SpacedLinkExtension = spaced_link.SpacedLinkExtension
 StrikethroughExtension = strikethrough.StrikethroughExtension
 TaskListExtension = tasklist.TaskListExtension
+
+__all__ = ['AutolinkExtension', 'AutomailExtension', 'HiddenHiliteExtension',
+           'SemiSaneListExtension', 'SpacedLinkExtension',
+           'StrikethroughExtension', 'TaskListExtension']

@@ -8,9 +8,21 @@ python:
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
+  - "pypy"
+
+env:
+  - WITH_PYGMENTS=0
+  - WITH_PYGMENTS=1
+
+matrix:
+  exclude:
+    # pygment does not support Python 3.2
+    - python: "3.2"
+      env: WITH_PYGMENTS=1
 
 install:
   - pip install -r dev-requirements.txt
+  - if [[ $WITH_PYGMENTS -eq 1 ]]; then pip install pygments; fi
   - pip install .
 
 script:

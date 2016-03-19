@@ -3,6 +3,125 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+"""
+:mod:`gfm.tasklist` -- Task list support
+========================================
+
+The :mod:`gfm.tasklist` module provides GitHub-like support for task lists.
+Those are normal lists with a checkbox-like syntax at the beginning of items
+that will be converted to actual checkbox inputs. Nested lists are supported.
+
+Example syntax::
+
+   - [x] milk
+   - [ ] eggs
+   - [x] chocolate
+   - [ ] if possible:
+       1. [ ] solve world peace
+       2. [ ] solve world hunger
+
+.. NOTE::
+   GitHub has support for updating the Markdown source text by toggling the
+   checkbox (by clicking on it). This is not supported by this extension, as it
+   requires server-side processing that is out of scope of a Markdown parser.
+
+Available configuration options
+-------------------------------
+
+================== ============== ======== ===========
+Name               Type           Default  Description
+================== ============== ======== ===========
+``unordered``      bool           ``True`` Set to ``False`` to disable parsing of unordered lists.
+``ordered``        bool           ``True`` Set to ``False`` to disable parsing of ordered lists.
+``max_depth``      integer        ∞        Set to a positive integer to stop parsing nested task
+                                           lists that are deeper than this limit.
+``item_attrs``     dict, callable ``{}``   Attributes to be added to the ``<li>`` element containing
+                                           the checkbox. See `Item attributes`_.
+``checkbox_attrs`` dict, callable ``{}``   Attributes to be added to the checkbox element.
+                                           See `Checkbox attributes`_.
+================== ============== ======== ===========
+
+Item attributes
+***************
+
+If option ``item_attrs`` is a *dict*, the key-value pairs will be applied to
+the ``<li>`` element as its HTML attributes.
+
+Example::
+
+   item_attrs={'class': 'list-item'}
+
+will result in::
+
+   <li class="list-item">...</li>
+
+If option ``item_attrs`` is a *callable*, it should be a function that
+respects the following prototype::
+
+   def function(parent, element, checkbox) -> dict:
+
+where:
+
+- ``parent`` is the ``<li>`` parent element;
+- ``element`` is the ``<li>`` element;
+- ``checkbox`` is the generated ``<input type="checkbox">`` element.
+
+The returned *dict* items will be applied as HTML attributes to the ``<li>``
+element containing the checkbox.
+
+Checkbox attributes
+*******************
+
+If option ``checkbox_attrs`` is a *dict*, the key-value pairs will be applied to
+the ``<input type="checkbox">`` element as its HTML attributes.
+
+Example::
+
+   checkbox_attrs={'class': 'list-cb'}
+
+will result in::
+
+   <li><input type="checkbox" class="list-cb"> ...</li>
+
+If option ``checkbox_attrs`` is a *callable*, it should be a function that
+respects the following prototype::
+
+   def function(parent, element) -> dict:
+
+where:
+
+- ``parent`` is the ``<li>`` parent element;
+- ``element`` is the ``<li>`` element.
+
+The returned *dict* items will be applied as HTML attributes to the checkbox
+element.
+
+Typical usage
+-------------
+
+.. testcode::
+
+   import markdown
+   from gfm import TaskListExtension
+
+   print(markdown.markdown(\"""
+   - [x] milk
+   - [ ] eggs
+   - [x] chocolate
+   - not a checkbox
+   \""", extensions=[TaskListExtension()]))
+
+.. testoutput::
+
+   <ul>
+   <li><input checked="checked" disabled="disabled" type="checkbox" /> milk</li>
+   <li><input disabled="disabled" type="checkbox" /> eggs</li>
+   <li><input checked="checked" disabled="disabled" type="checkbox" /> chocolate</li>
+   <li>not a checkbox</li>
+   </ul>
+
+"""
+
 from __future__ import unicode_literals
 
 import markdown
@@ -103,49 +222,18 @@ class TaskListProcessor(Treeprocessor):
 
 class TaskListExtension(markdown.Extension):
     """
-    An extension that supports task lists, that are simply lists of checkboxes.
-    Both ordered and unordered lists are supported and can be separately
-    enabled. Nested lists are supported.
+    An extension that supports GitHub task lists. Both ordered and unordered
+    lists are supported and can be separately enabled. Nested lists are
+    supported.
 
-    By default, unchecked boxes ares represented by [ ]. Customize the pattern
-    with option `unchecked`. You can use a list.
-    By default, checked boxes are represented by [x] or [X]. Customize the
-    pattern with option `checked`. You can use a list.
-    Checked patterns are tested before unchecked patterns.
+    Example::
 
-    Example:
-        - [x] milk
-        - [ ] eggs
-        - [x] chocolate
-        - [ ] if possible:
-            1. [ ] solve world peace
-            2. [ ] solve world hunger
-
-    Set option `unordered` to False to disable parsing of unordered lists.
-    Set option `ordered` to False to disable parsing of ordered lists.
-
-    You can limit the nesting of task lists by setting the `max_depth` option.
-    Default is unlimited nesting.
-
-    Option `item_attrs` accepts an attribute dict or a callable that takes the
-    following arguments:
-        - the <li> parent element
-        - the <li> element
-        - the generated <input type="checkbox"> element
-    and that should return an attribute dict.
-    These attributes are added to the <li> element where the checkbox is put.
-
-    Option `checkbox_attrs` accepts an attribute dict or a callable that takes
-    the following arguments:
-        - the <li> parent element
-        - the <li> element
-    and that should return an attribute dict.
-    These attributes are added to the checkbox element.
-
-    Note: Github has support for updating the markdown source by toggling the
-    checkbox (by clicking on it). This is not supported by this extension, as
-    it requires server-side processing that is out of scope of a markdown
-    parser.
+       - [x] milk
+       - [ ] eggs
+       - [x] chocolate
+       - [ ] if possible:
+           1. [ ] solve world peace
+           2. [ ] solve world hunger
     """
 
     def __init__(self, *args, **kwargs):

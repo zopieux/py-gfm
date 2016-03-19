@@ -3,6 +3,34 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+"""
+:mod:`gfm.spaced_link` -- Links with optional whitespace
+========================================================
+
+The :mod:`gfm.spaced_link` module provides an extension that supports links and
+images with additional whitespace.
+
+GitHub's Markdown engine allows links and images to have whitespace --
+including a single newline -- between the first set of brackets and the
+second (e.g. ``[text] (href)``). This extension adds such support.
+
+Typical usage
+-------------
+
+.. testcode::
+
+   import markdown
+   from gfm import SpacedLinkExtension
+
+   print(markdown.markdown("Check out [this link] (http://example.org/)!",
+                           extensions=[SpacedLinkExtension()]))
+
+.. testoutput::
+
+   <p>Check out <a href="http://example.org/">this link</a>!</p>
+
+"""
+
 from __future__ import unicode_literals
 
 import markdown
@@ -27,11 +55,6 @@ SPACED_IMAGE_REFERENCE_RE = markdown.inlinepatterns.IMAGE_REFERENCE_RE.replace(
 class SpacedLinkExtension(markdown.Extension):
     """
     An extension that supports links and images with additional whitespace.
-
-    GitHub's Markdown engine allows links and images to have whitespace --
-    including a single newline -- between the first set of brackets and the
-    second (e.g. ``[text] (href)``). Python-Markdown does not, but this
-    extension adds such support.
     """
 
     def extendMarkdown(self, md, md_globals):
