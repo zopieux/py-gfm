@@ -57,6 +57,10 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
+.PHONY: zip
+zip: html
+	cd $(BUILDDIR)/html && zip -r $(realpath $(BUILDDIR))/py-gfm.zip .
+
 .PHONY: dirhtml
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
