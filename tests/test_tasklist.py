@@ -11,6 +11,12 @@ from test_case import TestCase
 
 class TestTaskList(TestCase):
     def setUp(self):
+        def cb_attrs(parent, li):
+            return {'data-foo': li.text.split('=')[1]}
+
+        def list_attrs(list, depth):
+            return {'data-tag': list.tag, 'data-depth': str(depth)}
+
         self.tasklist = gfm.TaskListExtension()
         self.tasklist_ordered_disabled = gfm.TaskListExtension(ordered=False)
         self.tasklist_full_disabled = gfm.TaskListExtension(ordered=False, unordered=False)
@@ -22,12 +28,12 @@ class TestTaskList(TestCase):
             item_attrs={'class': 'foo'})
         self.tasklist_box_attrs = gfm.TaskListExtension(
             checkbox_attrs={'name': 'foo'})
-
-        def custom(parent, li):
-            return {'data-foo': li.text.split('=')[1]}
-
         self.tasklist_box_attrs_cb = gfm.TaskListExtension(
-            checkbox_attrs=custom)
+            checkbox_attrs=cb_attrs)
+        self.tasklist_list_attrs = gfm.TaskListExtension(
+            list_attrs={'class': 'somelist'})
+        self.tasklist_list_attrs_cb = gfm.TaskListExtension(
+            list_attrs=list_attrs)
 
     def test_tasklist_nolist(self):
         self.assert_renders("""
@@ -228,3 +234,62 @@ class TestTaskList(TestCase):
         - [x] foo =42
         - [ ] foo =1337
         """, [self.tasklist_box_attrs_cb])
+
+    def test_tasklist_list_attrs(self):
+        self.assert_renders("""
+        <ul class="somelist">
+        <li><input checked="checked" disabled="disabled" type="checkbox" /> yes item</li>
+        <li><input disabled="disabled" type="checkbox" /> no item</li>
+        </ul>
+        """, """
+        - [x] yes item
+        - [ ] no item
+        """, [self.tasklist_list_attrs])
+
+        # Non-tasklists are not modified
+        self.assert_renders("""
+        <ul>
+        <li>foo</li>
+        <li>bar</li>
+        </ul>
+        """, """
+        - foo
+        - bar
+        """, [self.tasklist_list_attrs])
+
+    def test_tasklist_list_attrs_nested(self):
+        self.assert_renders("""
+        <ul data-depth="1" data-tag="ul">
+        <li><input checked="checked" disabled="disabled" type="checkbox" /> yes item</li>
+        <li><input disabled="disabled" type="checkbox" /> no item<ul data-depth="2" data-tag="ul">
+        <li><input disabled="disabled" type="checkbox" /> nest 1</li>
+        <li><input disabled="disabled" type="checkbox" /> nest 2</li>
+        </ul>
+        </li>
+        </ul>
+        """, """
+        - [x] yes item
+        - [ ] no item
+            - [ ] nest 1
+            - [ ] nest 2
+        """, [self.tasklist_list_attrs_cb])
+
+    def test_tasklist_list_attrs_cb(self):
+        self.assert_renders("""
+        <ul data-depth="1" data-tag="ul">
+        <li><input checked="checked" disabled="disabled" type="checkbox" /> yes item</li>
+        <li><input disabled="disabled" type="checkbox" /> no item</li>
+        </ul>
+        """, """
+        - [x] yes item
+        - [ ] no item
+        """, [self.tasklist_list_attrs_cb])
+        self.assert_renders("""
+        <ol data-depth="1" data-tag="ol">
+        <li><input checked="checked" disabled="disabled" type="checkbox" /> yes item</li>
+        <li><input disabled="disabled" type="checkbox" /> no item</li>
+        </ol>
+        """, """
+        1. [x] yes item
+        1. [ ] no item
+        """, [self.tasklist_list_attrs_cb])

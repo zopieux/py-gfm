@@ -35,11 +35,67 @@ Name               Type           Default  Description
 ``ordered``        bool           ``True`` Set to ``False`` to disable parsing of ordered lists.
 ``max_depth``      integer        ∞        Set to a positive integer to stop parsing nested task
                                            lists that are deeper than this limit.
+``list_attrs``     dict, callable ``{}``   Attributes to be added to the ``<ul>`` or ``<ol>`` element
+                                           containing the items.
 ``item_attrs``     dict, callable ``{}``   Attributes to be added to the ``<li>`` element containing
                                            the checkbox. See `Item attributes`_.
 ``checkbox_attrs`` dict, callable ``{}``   Attributes to be added to the checkbox element.
                                            See `Checkbox attributes`_.
 ================== ============== ======== ===========
+
+List attributes
+***************
+
+If option ``list_attrs`` is a *dict*, the key-value pairs will be applied to
+the ``<ul>`` (resp. ``<ol>``) unordered (resp. ordered) list element, that is
+the parent element of the ``<li>`` elements.
+
+.. warning::
+
+   These attributes are applied to all nesting levels of lists, that is,
+   to both the root lists and their potential sub-lists, recursively.
+
+   You can control this behavior by using a *callable* instead (see below).
+
+If option ``list_attrs`` is a *callable*, it should be a function that respects
+the following prototype::
+
+   def function(list, depth: int) -> dict:
+
+where:
+
+- ``list`` is the ``<ul>`` or ``<ol>`` element;
+- ``depth`` is the depth of this list relative to its root list (root lists have
+  a depth of 1).
+
+The returned *dict* items will be applied as HTML attributes to the list
+element.
+
+.. note::
+
+   Thanks to this feature, you could apply attributes to root lists only.
+   Take this code sample::
+
+      import markdown
+      from gfm import TaskListExtension
+
+      def list_attr_cb(list, depth):
+          if depth == 1:
+              return {'class': 'tasklist'}
+          return {}
+
+      tl_ext = TaskListExtension(list_attrs=list_attr_cb)
+
+      print(markdown.markdown(\"""
+      - [x] some thing
+      - [ ] some other
+          - [ ] sub thing
+          - [ ] sub other
+      \""", extensions=[tl_ext]))
+
+   In this example, only the root list will have the ``tasklist`` class
+   attribute, not the one containing “sub” items.
+
 
 Item attributes
 ***************
@@ -163,11 +219,13 @@ class TaskListProcessor(Treeprocessor):
                                      unchecked_pattern))
 
         item_attrs = self.ext.getConfig('item_attrs')
+        list_attrs = self.ext.getConfig('list_attrs')
         base_cb_attrs = self.ext.getConfig('checkbox_attrs')
         max_depth = self.ext.getConfig('max_depth')
         if not max_depth:
             max_depth = float('inf')
 
+        lists = set()
         stack = [(root, None, 0)]
 
         while stack:
@@ -196,15 +254,21 @@ class TaskListProcessor(Treeprocessor):
                             break
 
                 if found:
+                    # Add root <ol> or <ul> element to the list set
+                    if list_attrs:
+                        lists.add((parent, depth))
+
+                    # Checkbox attributes
                     attrs = {'type': 'checkbox', 'disabled': 'disabled'}
                     if checked:
                         attrs['checked'] = 'checked'
-                    # Give user a chance to update attributes
+                    # Give user a chance to update checkbox attributes
                     attrs.update(base_cb_attrs(parent, el)
                                  if callable(base_cb_attrs)
                                  else base_cb_attrs)
                     checkbox = etree.Element('input', attrs)
                     checkbox.tail = text
+                    # Prepend checkbox to <li>
                     el.text = ''
                     el.insert(0, checkbox)
                     # Give user a chance to update <li> attributes
@@ -216,6 +280,11 @@ class TaskListProcessor(Treeprocessor):
             if depth < max_depth:
                 for child in el:
                     stack.append((child, el, depth))
+
+        for list, depth in lists:
+            for k, v in (list_attrs(list, depth) if callable(list_attrs)
+                         else list_attrs).items():
+                list.set(k, v)
 
         return root
 
@@ -244,6 +313,8 @@ class TaskListExtension(markdown.Extension):
             'unchecked': ['[ ]', "The unchecked state pattern"],
             'max_depth': [0, "Maximum list nesting depth (None for "
                              "unlimited)"],
+            'list_attrs': [{}, "Additional attribute dict (or callable) to "
+                               "add to the <ul> or <ol> element"],
             'item_attrs': [{}, "Additional attribute dict (or callable) to "
                                "add to the <li> element"],
             'checkbox_attrs': [{}, "Additional attribute dict (or callable) "
