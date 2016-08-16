@@ -12,6 +12,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=['setuptools', 'markdown'],
+    data_files = [('', ['LICENSE'])],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
