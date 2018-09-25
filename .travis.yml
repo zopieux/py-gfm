@@ -6,8 +6,8 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
+  - "3.6"
+  - "nightly"
   - "pypy"
 
 env:
@@ -19,6 +19,8 @@ matrix:
     # pygment does not support Python 3.2
     - python: "3.2"
       env: WITH_PYGMENTS=1
+  allow_failures:
+    - python: "nightly"
 
 install:
   - pip install -r dev-requirements.txt
