@@ -8,7 +8,7 @@ from test_case import TestCase
 
 class TestSemiSaneLists(TestCase):
     def setUp(self):
-        self.semi_sane_lists = gfm.SemiSaneListExtension([])
+        self.semi_sane_lists = gfm.SemiSaneListExtension()
 
     def test_doesnt_join_ul_and_ol(self):
         self.assert_renders("""

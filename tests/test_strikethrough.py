@@ -8,7 +8,7 @@ from test_case import TestCase
 
 class TestStrikethrough(TestCase):
     def setUp(self):
-        self.strikethrough = gfm.StrikethroughExtension([])
+        self.strikethrough = gfm.StrikethroughExtension()
 
     def test_double_tilde_strikes(self):
         self.assert_renders("""

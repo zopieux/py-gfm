@@ -8,7 +8,7 @@ from test_case import TestCase
 
 class TestMultilineLink(TestCase):
     def setUp(self):
-        self.spaced_link = gfm.SpacedLinkExtension([])
+        self.spaced_link = gfm.SpacedLinkExtension()
 
     def test_normal_link(self):
         self.assert_renders("""

@@ -32,7 +32,7 @@ parser.add_option('-n', '--name', help='the name of the test to run',
 options, args = parser.parse_args()
 sdk_path = None
 if len(args) > 0:
-    print 'Error: 0 arguments expected.'
+    print('Error: 0 arguments expected.')
     parser.print_help()
     sys.exit(1)
 
