@@ -6,7 +6,7 @@
 from __future__ import unicode_literals
 
 from test_case import TestCase
-
+import pygments
 
 class TestGfm(TestCase):
     def test_fenced_code(self):
@@ -24,7 +24,7 @@ class TestGfm(TestCase):
         else:
             self.assert_renders("""
         <pre class="highlight"><code>foo</code></pre>
-        """, test_text, extensions)
+        """+pygments.__version__, test_text, extensions)
 
     def test_nl2br(self):
         self.assert_renders("""
