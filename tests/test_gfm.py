@@ -22,9 +22,9 @@ class TestGfm(TestCase):
         </pre></div>
         """, test_text, extensions)
         else:
-            self.assert_renders("""
+            self.assert_renders(pygments.__version__+"""
         <pre class="highlight"><code>foo</code></pre>
-        """+pygments.__version__, test_text, extensions)
+        """, test_text, extensions)
 
     def test_nl2br(self):
         self.assert_renders("""
