@@ -94,7 +94,6 @@ class HiddenHilite(CodeHilite):
 
         if self.lang is None:
             self._parseHeader()
-        raise KeyboardInterrupt()
         if pygments and self.use_pygments:
             try:
                 lexer = get_lexer_by_name(self.lang)
