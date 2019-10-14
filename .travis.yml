@@ -20,6 +20,8 @@ matrix:
     # pygment does not support Python 3.2
     - python: "3.2"
       env: WITH_PYGMENTS=1
+    - python: "3.4"
+      env: WITH_PYGMENTS=1
   allow_failures:
     - python: "nightly"
 
