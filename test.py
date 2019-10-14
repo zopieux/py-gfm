@@ -28,12 +28,7 @@ parser = argparse.ArgumentParser("Run unit tests.")
 parser.add_argument('-n', '--name', help='the name of the test to run',
                     metavar='NAME')
 
-options, args = parser.parse_args()
-sdk_path = None
-if len(args) > 0:
-    print('Error: 0 arguments expected.')
-    parser.print_help()
-    sys.exit(1)
+args = parser.parse_args()
 
 test_path = os.path.join(os.path.dirname(__file__), 'tests')
 test_loader = loader.TestLoader()

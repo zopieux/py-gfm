@@ -7,7 +7,6 @@ from __future__ import unicode_literals
 
 from test_case import TestCase
 
-
 class TestGfm(TestCase):
     def test_fenced_code(self):
         test_text = """
@@ -18,8 +17,8 @@ class TestGfm(TestCase):
         extensions = ['gfm']
         if self.has_pygments:
             self.assert_renders("""
-        <div class="highlight"><pre><span></span><code><span class="n">foo</span>
-        </code></pre></div>
+        <div class="highlight"><pre><span></span><span class="n">foo</span>
+        </pre></div>
         """, test_text, extensions)
         else:
             self.assert_renders("""
@@ -79,8 +78,8 @@ class TestGfm(TestCase):
 
         if self.has_pygments:
             self.assert_renders("""
-        <div class="highlight"><pre><span></span><code><span class="k">def</span>
-        </code></pre></div>
+        <div class="highlight"><pre><span></span><span class="k">def</span>
+        </pre></div>
         """, test_text, extensions)
         else:
             self.assert_renders("""

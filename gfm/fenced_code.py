@@ -53,7 +53,6 @@ class FencedBlockPreprocessor(org.FencedBlockPreprocessor):
                     #print(self.codehilite_conf['pygments_style'][0],)
                     #import pdb;pdb.set_trace()
                     #print(self.codehilite_conf['noclasses'])
-                    #raise KeyboardInterrupt()
                     highliter = HiddenHilite(
                         src=code, 
                         linenums=self.codehilite_conf['linenums'][0],
