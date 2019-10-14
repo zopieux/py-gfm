@@ -1,0 +1,36 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "nightly"
+  - "pypy"
+
+env:
+  - WITH_PYGMENTS=0
+  - WITH_PYGMENTS=1
+
+matrix:
+  exclude:
+    # pygment does not support Python 3.2
+    - python: "3.2"
+      env: WITH_PYGMENTS=1
+  allow_failures:
+    - python: "nightly"
+
+install:
+  - pip install -r dev-requirements.txt
+  - if [[ $WITH_PYGMENTS -eq 1 ]]; then pip install pygments; fi
+  - pip install .
+
+script:
+  # coverage >= 4 does not support Python 3.2
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.2 ]]; then python test.py; else coverage run test.py; fi
+
+after_success:
+  - codecov
+  - coveralls
