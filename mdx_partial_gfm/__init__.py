@@ -27,8 +27,9 @@ please use :class:`mdx_gfm.GithubFlavoredMarkdownExtension`.
 
 from markdown.extensions import Extension
 from markdown.extensions.fenced_code import FencedCodeExtension
-from markdown.extensions.smart_strong import SmartEmphasisExtension
+#from markdown.extensions.smart_strong import SmartEmphasisExtension
 from markdown.extensions.tables import TableExtension
+from gfm.fenced_code import FencedCodeExtension as gfmFencedCodeExtension
 
 import gfm
 
@@ -57,19 +58,30 @@ class PartialGithubFlavoredMarkdownExtension(Extension):
     .. _GFM documentation: https://guides.github.com/features/mastering-markdown/
     """
 
+    #def extendMarkdown(self, md, md_globals):
     def extendMarkdown(self, md, md_globals):
         # Built-in extensions
-        FencedCodeExtension().extendMarkdown(md, md_globals)
-        SmartEmphasisExtension().extendMarkdown(md, md_globals)
-        TableExtension().extendMarkdown(md, md_globals)
+        gfmFencedCodeExtension().extendMarkdown(md)
+        #FencedCodeExtension().extendMarkdown(md)
+        #FencedCodeExtension().extendMarkdown(md, md_globals)
+        #SmartEmphasisExtension().extendMarkdown(md, md_globals)
+        #TableExtension().extendMarkdown(md, md_globals)
+        TableExtension().extendMarkdown(md)
 
         # Custom extensions
         gfm.AutolinkExtension().extendMarkdown(md, md_globals)
         gfm.AutomailExtension().extendMarkdown(md, md_globals)
-        gfm.HiddenHiliteExtension([
-            ('guess_lang', 'False'),
-            ('css_class', 'highlight')
-        ]).extendMarkdown(md, md_globals)
+        # gfm.HiddenHiliteExtension([
+        #     ('guess_lang', 'False'),
+        #     ('css_class', 'highlight')
+        # ]).extendMarkdown(md, md_globals)
+        # print(md_globals)
+        # print(self.config)
+        # print(dir(md))
+        # raise KeyboardInterrupt()
+        #print(self.config)
+        #gfm.HiddenHiliteExtension().extendMarkdown(md, md_globals)
+        gfm.HiddenHiliteExtension().extendMarkdown(md, self.config)
         gfm.SemiSaneListExtension().extendMarkdown(md, md_globals)
         gfm.SpacedLinkExtension().extendMarkdown(md, md_globals)
         gfm.StrikethroughExtension().extendMarkdown(md, md_globals)

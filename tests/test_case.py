@@ -28,8 +28,10 @@ class TestCase(unittest.TestCase):
 
         expected = self.clean_multiline(expected)
         source = self.clean_multiline(source)
-        self.assertEqual(
-            expected, markdown.markdown(source, extensions=extensions))
+        # self.assertEqual(
+        #     expected, markdown.markdown(source, extensions=extensions))
+        md = markdown.markdown(source, extensions=extensions)
+        self.assertEqual(expected, md)
 
     def clean_multiline(self, text):
         """Cleans an indented multiline string.
