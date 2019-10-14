@@ -78,8 +78,8 @@ class HiddenHiliteExtension(CodeHiliteExtension):
 class HiddenHilite(CodeHilite):
     #def __init__(self, *_, filename='', **args4base):
     def __init__(self, filename='', **args4base):
-        if _:
-            raise TypeError("__init__() expected a keyword argument only")
+        # if _:
+        #     raise TypeError("__init__() expected a keyword argument only")
         
         CodeHilite.__init__(self,**args4base)
         #print(self.noclasses)
