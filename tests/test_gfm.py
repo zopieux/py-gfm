@@ -20,9 +20,9 @@ class TestGfm(TestCase):
             self.assert_renders("""
         <div class="highlight"><pre><span></span><span class="n">foo</span>
         </pre></div>
-        """, test_text, extensions)
+        """+pygments.__version__, test_text, extensions)
         else:
-            self.assert_renders(pygments.__version__+"""
+            self.assert_renders("""
         <pre class="highlight"><code>foo</code></pre>
         """, test_text, extensions)
 
