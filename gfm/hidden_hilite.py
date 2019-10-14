@@ -76,7 +76,8 @@ class HiddenHiliteExtension(CodeHiliteExtension):
         
 
 class HiddenHilite(CodeHilite):
-    def __init__(self, *_, filename='', **args4base):
+    #def __init__(self, *_, filename='', **args4base):
+    def __init__(self, filename='', **args4base):
         if _:
             raise TypeError("__init__() expected a keyword argument only")
         
@@ -94,7 +95,6 @@ class HiddenHilite(CodeHilite):
 
         if self.lang is None:
             self._parseHeader()
-        raise KeyboardInterrupt()
         if pygments and self.use_pygments:
             try:
                 lexer = get_lexer_by_name(self.lang)
