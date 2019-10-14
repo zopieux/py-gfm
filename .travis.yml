@@ -24,7 +24,7 @@ matrix:
 
 install:
   - pip install -r dev-requirements.txt
-  - if [[ $WITH_PYGMENTS -eq 1 ]]; then pip install pygments; fi
+  - if [[ $WITH_PYGMENTS -eq 1 ]]; then pip install pygments==2.4.2; fi
   - pip install .
 
 script:
