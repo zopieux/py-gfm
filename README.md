@@ -1,4 +1,6 @@
-This repository is unmaintained. Please see [Zopieux/py-gfm][] for the new
-canonical repository.
+This is an implementation of [GitHub-Flavored Markdown][gfm] written as an
+extension to the Python [Markdown][md] library. It aims for maximal
+compatibility with GitHub's rendering.
 
-[Zopieux/py-gfm]: https://github.com/Zopieux/py-gfm
+[gfm]: http://github.github.com/github-flavored-markdown/
+[md]: http://packages.python.org/Markdown/
