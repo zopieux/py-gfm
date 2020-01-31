@@ -73,54 +73,18 @@ class HiddenHiliteExtension(CodeHiliteExtension):
     #     super(HiddenHiliteExtension, self).__init__(**kwargs)
         
     def extendMarkdown(self, md, md_globals):
-        #print(md_globals)
         md.registerExtension(self)
         for key in self.config:
             if key in md_globals:
                 self.config[key][0] = md_globals[key][0]
-        self.config['pygments_show_filename'] = md_globals.get('pygments_show_filename', False)
         
 
 class HiddenHilite(CodeHilite):
-    def __init__(self, *_, filename='', **args4base):
+    def __init__(self, *_, **args4base):
         if _:
             raise TypeError("__init__() expected a keyword argument only")
         
         CodeHilite.__init__(self,**args4base)
-        #print(self.noclasses)
-        #print(args4base['noclasses'])
-        #raise KeyboardInterrupt()
-        self.filename = filename
 
     def hilite(self):
-        if not self.filename:
-            return CodeHilite.hilite(self)
-
-        self.src = self.src.strip('\n')
-
-        if self.lang is None:
-            self._parseHeader()
-
-        if pygments and self.use_pygments:
-            try:
-                lexer = get_lexer_by_name(self.lang)
-            except ValueError:
-                try:
-                    if self.guess_lang:
-                        lexer = guess_lexer(self.src)
-                    else:
-                        lexer = get_lexer_by_name('text')
-                except ValueError:
-                    lexer = get_lexer_by_name('text')
-            formatter = get_formatter_by_name('html',
-                                              linenos=self.linenums,
-                                              cssclass=self.css_class,
-                                              style=self.style,
-                                              noclasses=self.noclasses,
-                                              hl_lines=self.hl_lines,
-                                              wrapcode=True,
-                                              filename=self.filename,
-            )
-            return highlight(self.src, lexer, formatter)
-        
         return CodeHilite.hilite(self)

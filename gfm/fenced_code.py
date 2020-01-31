@@ -45,15 +45,7 @@ class FencedBlockPreprocessor(org.FencedBlockPreprocessor):
                 # If config is not empty, then the codehighlite extension
                 # is enabled, so we call it to highlight the code
                 code = re.sub('^'+m.group('indent'), '', m.group('code'), flags=re.MULTILINE)
-                filename = self.codehilite_conf.get('pygments_show_filename', '') and m.group('filename')
                 if self.codehilite_conf:
-                    #highliter = CodeHilite(
-                    #print(self.codehilite_conf)
-                    #raise KeyboardInterrupt()
-                    #print(self.codehilite_conf['pygments_style'][0],)
-                    #import pdb;pdb.set_trace()
-                    #print(self.codehilite_conf['noclasses'])
-                    #raise KeyboardInterrupt()
                     highliter = HiddenHilite(
                         src=code, 
                         linenums=self.codehilite_conf['linenums'][0],
@@ -64,15 +56,11 @@ class FencedBlockPreprocessor(org.FencedBlockPreprocessor):
                         lang=(m.group('lang') or None),
                         noclasses=self.codehilite_conf['noclasses'][0],
                         hl_lines=parse_hl_lines(m.group('hl_lines')),
-                        filename = filename,
                     )
                     code = highliter.hilite()
                 else:
                     code = self.CODE_WRAP % (lang,
                                              self._escape(m.group('code')))
-                # code = code[:code.find(">")+1] + \
-                #     f'<div><span class="filename">{m.group("filename") or ""}</span></div>' +\
-                #     code[code.find(">")+1:]
                 placeholder = self.md.htmlStash.store(code)
                 placeholder = m.group('indent') + placeholder
                 text = '%s\n%s\n%s' % (text[:m.start()],

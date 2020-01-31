@@ -71,9 +71,6 @@ class GithubFlavoredMarkdownExtension(PartialGithubFlavoredMarkdownExtension):
                          'Use Pygments to Highlight code blocks. '
                          'Disable if using a JavaScript library. '
                          'Default: True'],
-        'pygments_show_filename': [False,
-                         'Show gfm styled filename for codeblock'
-                         'Default: False'],
         }
     def extendMarkdown(self, md, md_globals):
         PartialGithubFlavoredMarkdownExtension.extendMarkdown(self, md,
