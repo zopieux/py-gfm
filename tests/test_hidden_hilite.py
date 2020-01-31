@@ -58,3 +58,12 @@ class TestHiddenHilite(TestCase):
             self.assert_renders("""
         <pre class="codehilite"><code class="language-python">def</code></pre>
         """, test_text, extensions)
+
+    def test_positional_arguments(self):
+        test_text = """
+        ```python
+        def
+        ```
+        """
+        with self.assertRaises(TypeError):
+            gfm.hidden_hilite.HiddenHilite(test_text)
