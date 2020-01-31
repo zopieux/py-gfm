@@ -18,7 +18,7 @@ class TestGfm(TestCase):
         extensions = ['gfm']
         if self.has_pygments:
             self.assert_renders("""
-        <div class="highlight"><pre><span></span>foo
+        <div class="highlight"><pre><span></span><span class="err">foo</span>
         </pre></div>
         """, test_text, extensions)
         else:
