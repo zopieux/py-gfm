@@ -1,8 +1,12 @@
+# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+from __future__ import unicode_literals
+
 from test_case import TestCase
+
 
 class TestGfm(TestCase):
     def test_fenced_code(self):
@@ -14,14 +18,13 @@ class TestGfm(TestCase):
         extensions = ['gfm']
         if self.has_pygments:
             self.assert_renders("""
-        <div class="highlight"><pre><span></span><code><span class="n">foo</span>
-        </code></pre></div>
+        <div class="highlight"><pre><span></span>foo
+        </pre></div>
         """, test_text, extensions)
         else:
             self.assert_renders("""
         <pre class="highlight"><code>foo</code></pre>
         """, test_text, extensions)
-            
 
     def test_nl2br(self):
         self.assert_renders("""
@@ -76,8 +79,8 @@ class TestGfm(TestCase):
 
         if self.has_pygments:
             self.assert_renders("""
-        <div class="highlight"><pre><span></span><code><span class="k">def</span>
-        </code></pre></div>
+        <div class="highlight"><pre><span></span><span class="k">def</span>
+        </pre></div>
         """, test_text, extensions)
         else:
             self.assert_renders("""

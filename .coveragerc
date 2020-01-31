@@ -1,0 +1,12 @@
+[run]
+branch = True
+source =
+    gfm
+    mdx_gfm
+    mdx_partial_gfm
+
+[report]
+exclude_lines =
+    pragma: no cover
+    noqa
+    if __name__ == .__main__.:

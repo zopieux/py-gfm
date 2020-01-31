@@ -30,6 +30,12 @@ Typical usage
 
 from markdown.extensions.codehilite import CodeHiliteExtension, CodeHilite
 
+
+class HiddenHiliteExtension(CodeHiliteExtension):
+    """
+    A subclass of CodeHiliteExtension that doesn't highlight on its own.
+    """
+
 try:
     from pygments import highlight
     from pygments.lexers import get_lexer_by_name, guess_lexer

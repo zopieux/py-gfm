@@ -1,10 +1,13 @@
+# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
-import gfm
+from __future__ import unicode_literals
 
+import gfm
 from test_case import TestCase
+
 
 class TestHiddenHilite(TestCase):
     def setUp(self):
@@ -50,8 +53,8 @@ class TestHiddenHilite(TestCase):
         extensions = [self.hidden_hilite, 'gfm.fenced_code']
         if self.has_pygments:
             self.assert_renders("""
-        <div class="codehilite"><pre><span></span><code><span class="k">def</span>
-        </code></pre></div>
+        <div class="codehilite"><pre><span></span><span class="k">def</span>
+        </pre></div>
         """, test_text, extensions)
         else:
             self.assert_renders("""
