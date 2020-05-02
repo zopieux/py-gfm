@@ -38,3 +38,6 @@ class HiddenHiliteExtension(CodeHiliteExtension):
 
     def extendMarkdown(self, md, md_globals):
         md.registerExtension(self)
+        for key in self.config:
+            if key in md_globals:
+                self.config[key][0] = md_globals[key][0]

@@ -11,7 +11,7 @@ from test_case import TestCase
 
 class TestAutolink(TestCase):
     def setUp(self):
-        self.autolink = gfm.AutolinkExtension([])
+        self.autolink = gfm.AutolinkExtension()
 
     def test_autolinks_obvious_links(self):
         self.assert_renders("""
