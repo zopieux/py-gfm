@@ -89,7 +89,3 @@ class SpacedLinkExtension(markdown.Extension):
 
         md.inlinePatterns.register(SpacedImageReferenceInlineProcessor(
             IMAGE_LINK_RE, md), 'img_spaced_reference', 503)
-
-
-def makeExtension(**kwargs):
-    return SpacedLinkExtension(**kwargs)
