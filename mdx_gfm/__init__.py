@@ -51,4 +51,4 @@ class GithubFlavoredMarkdownExtension(PartialGithubFlavoredMarkdownExtension):
     def extendMarkdown(self, md, md_globals):
         PartialGithubFlavoredMarkdownExtension.extendMarkdown(self, md,
                                                               md_globals)
-        Nl2BrExtension().extendMarkdown(md, md_globals)
+        Nl2BrExtension().extendMarkdown(md)
