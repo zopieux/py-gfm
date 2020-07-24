@@ -195,25 +195,26 @@ class TaskListProcessor(Treeprocessor):
         self.ext = ext
 
     def run(self, root):
-        ordered = self.ext.getConfig('ordered')
-        unordered = self.ext.getConfig('unordered')
+        ordered = self.ext.getConfig("ordered")
+        unordered = self.ext.getConfig("unordered")
         if not ordered and not unordered:
             return root
 
-        checked_pattern = _to_list(self.ext.getConfig('checked'))
-        unchecked_pattern = _to_list(self.ext.getConfig('unchecked'))
+        checked_pattern = _to_list(self.ext.getConfig("checked"))
+        unchecked_pattern = _to_list(self.ext.getConfig("unchecked"))
         if not checked_pattern and not unchecked_pattern:
             return root
 
-        prefix_length = reduce(max, (len(e) for e in checked_pattern +
-                                     unchecked_pattern))
+        prefix_length = reduce(
+            max, (len(e) for e in checked_pattern + unchecked_pattern)
+        )
 
-        item_attrs = self.ext.getConfig('item_attrs')
-        list_attrs = self.ext.getConfig('list_attrs')
-        base_cb_attrs = self.ext.getConfig('checkbox_attrs')
-        max_depth = self.ext.getConfig('max_depth')
+        item_attrs = self.ext.getConfig("item_attrs")
+        list_attrs = self.ext.getConfig("list_attrs")
+        base_cb_attrs = self.ext.getConfig("checkbox_attrs")
+        max_depth = self.ext.getConfig("max_depth")
         if not max_depth:
-            max_depth = float('inf')
+            max_depth = float("inf")
 
         lists = set()
         stack = [(root, None, 0)]
@@ -221,11 +222,13 @@ class TaskListProcessor(Treeprocessor):
         while stack:
             el, parent, depth = stack.pop()
 
-            if (parent and el.tag == 'li' and
-                    (parent.tag == 'ul' and unordered or
-                     parent.tag == 'ol' and ordered)):
+            if (
+                parent
+                and el.tag == "li"
+                and (parent.tag == "ul" and unordered or parent.tag == "ol" and ordered)
+            ):
                 depth += 1
-                text = (el.text or '').lstrip()
+                text = (el.text or "").lstrip()
                 lower_text = text[:prefix_length].lower()
                 found = False
                 checked = False
@@ -234,13 +237,13 @@ class TaskListProcessor(Treeprocessor):
                     if lower_text.startswith(p):
                         found = True
                         checked = True
-                        text = text[len(p):]
+                        text = text[len(p) :]
                         break
                 else:
                     for p in unchecked_pattern:
                         if lower_text.startswith(p):
                             found = True
-                            text = text[len(p):]
+                            text = text[len(p) :]
                             break
 
                 if found:
@@ -249,22 +252,26 @@ class TaskListProcessor(Treeprocessor):
                         lists.add((parent, depth))
 
                     # Checkbox attributes
-                    attrs = {'type': 'checkbox', 'disabled': 'disabled'}
+                    attrs = {"type": "checkbox", "disabled": "disabled"}
                     if checked:
-                        attrs['checked'] = 'checked'
+                        attrs["checked"] = "checked"
                     # Give user a chance to update checkbox attributes
-                    attrs.update(base_cb_attrs(parent, el)
-                                 if callable(base_cb_attrs)
-                                 else base_cb_attrs)
-                    checkbox = etree.Element('input', attrs)
+                    attrs.update(
+                        base_cb_attrs(parent, el)
+                        if callable(base_cb_attrs)
+                        else base_cb_attrs
+                    )
+                    checkbox = etree.Element("input", attrs)
                     checkbox.tail = text
                     # Prepend checkbox to <li>
-                    el.text = ''
+                    el.text = ""
                     el.insert(0, checkbox)
                     # Give user a chance to update <li> attributes
-                    for k, v in (item_attrs(parent, el, checkbox)
-                                 if callable(item_attrs)
-                                 else item_attrs).items():
+                    for k, v in (
+                        item_attrs(parent, el, checkbox)
+                        if callable(item_attrs)
+                        else item_attrs
+                    ).items():
                         el.set(k, v)
 
             if depth < max_depth:
@@ -272,8 +279,9 @@ class TaskListProcessor(Treeprocessor):
                     stack.append((child, el, depth))
 
         for list, depth in lists:
-            for k, v in (list_attrs(list, depth) if callable(list_attrs)
-                         else list_attrs).items():
+            for k, v in (
+                list_attrs(list, depth) if callable(list_attrs) else list_attrs
+            ).items():
                 list.set(k, v)
 
         return root
@@ -297,20 +305,27 @@ class TaskListExtension(markdown.Extension):
 
     def __init__(self, **kwargs):
         self.config = {
-            'ordered': [True, "Enable parsing of ordered lists"],
-            'unordered': [True, "Enable parsing of unordered lists"],
-            'checked': ['[x]', "The checked state pattern"],
-            'unchecked': ['[ ]', "The unchecked state pattern"],
-            'max_depth': [0, "Maximum list nesting depth (None for "
-                             "unlimited)"],
-            'list_attrs': [{}, "Additional attribute dict (or callable) to "
-                               "add to the <ul> or <ol> element"],
-            'item_attrs': [{}, "Additional attribute dict (or callable) to "
-                               "add to the <li> element"],
-            'checkbox_attrs': [{}, "Additional attribute dict (or callable) "
-                                   "to add to the checkbox <input> element"],
+            "ordered": [True, "Enable parsing of ordered lists"],
+            "unordered": [True, "Enable parsing of unordered lists"],
+            "checked": ["[x]", "The checked state pattern"],
+            "unchecked": ["[ ]", "The unchecked state pattern"],
+            "max_depth": [0, "Maximum list nesting depth (None for " "unlimited)"],
+            "list_attrs": [
+                {},
+                "Additional attribute dict (or callable) to "
+                "add to the <ul> or <ol> element",
+            ],
+            "item_attrs": [
+                {},
+                "Additional attribute dict (or callable) to " "add to the <li> element",
+            ],
+            "checkbox_attrs": [
+                {},
+                "Additional attribute dict (or callable) "
+                "to add to the checkbox <input> element",
+            ],
         }
         super().__init__(**kwargs)
 
     def extendMarkdown(self, md):
-        md.treeprocessors.register(TaskListProcessor(self), 'gfm-tasklist', 100)
+        md.treeprocessors.register(TaskListProcessor(self), "gfm-tasklist", 100)

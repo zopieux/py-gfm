@@ -25,8 +25,7 @@ class TestCase(unittest.TestCase):
 
         expected = self.clean_multiline(expected)
         source = self.clean_multiline(source)
-        self.assertEqual(
-            expected, markdown.markdown(source, extensions=extensions))
+        self.assertEqual(expected, markdown.markdown(source, extensions=extensions))
 
     def clean_multiline(self, text):
         """Cleans an indented multiline string.
@@ -37,5 +36,5 @@ class TestCase(unittest.TestCase):
 
         # Optional flags for sub() were only added in python 2.6
         # so compile is used to get the same effect.
-        regexPattern = re.compile(r'^ {8}', re.MULTILINE)
-        return re.sub(regexPattern, '', text)[1:-1]
+        regexPattern = re.compile(r"^ {8}", re.MULTILINE)
+        return re.sub(regexPattern, "", text)[1:-1]

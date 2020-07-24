@@ -21,10 +21,17 @@ SemiSaneListExtension = semi_sane_lists.SemiSaneListExtension
 StrikethroughExtension = strikethrough.StrikethroughExtension
 TaskListExtension = tasklist.TaskListExtension
 
-__all__ = ['AutolinkExtension', 'AutomailExtension', 'SemiSaneListExtension',
-           'StandaloneFencedCodeExtension', 'StrikethroughExtension', 'TaskListExtension']
+__all__ = [
+    "AutolinkExtension",
+    "AutomailExtension",
+    "SemiSaneListExtension",
+    "StandaloneFencedCodeExtension",
+    "StrikethroughExtension",
+    "TaskListExtension",
+]
 
 
 def makeExtension(**kwargs):
     from mdx_gfm import GithubFlavoredMarkdownExtension
+
     return GithubFlavoredMarkdownExtension(**kwargs)

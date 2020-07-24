@@ -42,22 +42,24 @@ Typical usage
 import re
 import markdown
 
-URL_RE = (r'(?i)\b((?:(?:ftp|https?)://|www\d{0,3}[.])(?:[^\s()<>]+|'
-          r'\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()'
-          r'<>]+\)))*\)|[^\s`!()\[\]{};:' + r"'" + r'".,<>?«»“”‘’]))')
-PROTOCOL_RE = re.compile(r'^(ftp|https?)://', re.IGNORECASE)
+URL_RE = (
+    r"(?i)\b((?:(?:ftp|https?)://|www\d{0,3}[.])(?:[^\s()<>]+|"
+    r"\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()"
+    r"<>]+\)))*\)|[^\s`!()\[\]{};:" + r"'" + r'".,<>?«»“”‘’]))'
+)
+PROTOCOL_RE = re.compile(r"^(ftp|https?)://", re.IGNORECASE)
 
 
 # We can't re-use the built-in AutolinkPattern because we need to add protocols
 # to links without them.
 class AutolinkPattern(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        el = markdown.util.etree.Element('a')
+        el = markdown.util.etree.Element("a")
 
         href = m.group(2)
         if not PROTOCOL_RE.match(href):
-            href = 'http://%s' % href
-        el.set('href', self.unescape(href))
+            href = "http://%s" % href
+        el.set("href", self.unescape(href))
 
         el.text = markdown.util.AtomicString(m.group(2))
         return el
@@ -69,4 +71,4 @@ class AutolinkExtension(markdown.Extension):
     """
 
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(AutolinkPattern(URL_RE, md), 'gfm-autolink', 100)
+        md.inlinePatterns.register(AutolinkPattern(URL_RE, md), "gfm-autolink", 100)

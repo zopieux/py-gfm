@@ -29,15 +29,15 @@ Typical usage
 import markdown
 import markdown.inlinepatterns
 
-MAIL_RE = r'\b(?i)([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+)\b'
+MAIL_RE = r"\b(?i)([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+)\b"
 
 
 # We can't re-use the built-in AutomailPattern because we need to add mailto:.
 # We also don't care about HTML-encoding the email.
 class AutomailPattern(markdown.inlinepatterns.Pattern):
     def handleMatch(self, m):
-        el = markdown.util.etree.Element('a')
-        el.set('href', self.unescape('mailto:' + m.group(2)))
+        el = markdown.util.etree.Element("a")
+        el.set("href", self.unescape("mailto:" + m.group(2)))
         el.text = markdown.util.AtomicString(m.group(2))
         return el
 
@@ -48,4 +48,4 @@ class AutomailExtension(markdown.Extension):
     """
 
     def extendMarkdown(self, md):
-        md.inlinePatterns.register(AutomailPattern(MAIL_RE, md), 'gfm-automail', 100)
+        md.inlinePatterns.register(AutomailPattern(MAIL_RE, md), "gfm-automail", 100)

@@ -11,22 +11,34 @@ class TestAutomail(TestCase):
         self.automail = gfm.AutomailExtension()
 
     def test_automails_obvious_mails(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p><a href="mailto:foo@bar.com">foo@bar.com</a></p>
-        """, """
+        """,
+            """
         foo@bar.com
-        """, [self.automail])
+        """,
+            [self.automail],
+        )
 
     def test_automails_mails_with_weird_chars(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p><a href="mailto:foo+bar@baz.blip.com">foo+bar@baz.blip.com</a></p>
-        """, """
+        """,
+            """
         foo+bar@baz.blip.com
-        """, [self.automail])
+        """,
+            [self.automail],
+        )
 
     def test_automails_uppercase_mails(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p><a href="mailto:FOO+BAR@BAZ.BLIP.COM">FOO+BAR@BAZ.BLIP.COM</a></p>
-        """, """
+        """,
+            """
         FOO+BAR@BAZ.BLIP.COM
-        """, [self.automail])
+        """,
+            [self.automail],
+        )

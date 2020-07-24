@@ -11,29 +11,45 @@ class TestStrikethrough(TestCase):
         self.strikethrough = gfm.StrikethroughExtension()
 
     def test_double_tilde_strikes(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p>This is <del>struck</del>, and so <del>is this</del>.</p>
-        """, """
+        """,
+            """
         This is ~~struck~~, and so ~~is this~~.
-        """, [self.strikethrough])
+        """,
+            [self.strikethrough],
+        )
 
     def test_single_tilde_doesnt_strike(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p>This is ~not struck~, and this tilde <del>doesn't~stop~it</del>.</p>
-        """, """
+        """,
+            """
         This is ~not struck~, and this tilde ~~doesn't~stop~it~~.
-        """, [self.strikethrough])
+        """,
+            [self.strikethrough],
+        )
 
     def test_strikethrough_nests(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p><del><strong>outer</strong></del>, <strong><del>inner</del></strong>.</p>
-        """, """
+        """,
+            """
         ~~**outer**~~, **~~inner~~**.
-        """, [self.strikethrough])
+        """,
+            [self.strikethrough],
+        )
 
     def test_extra_tildes_dont_cause_strikethrough(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p>~~~foo~~~, ~~~bar~~, ~~~~baz~~~~</p>
-        """, """
+        """,
+            """
         ~~~foo~~~, ~~~bar~~, ~~~~baz~~~~
-        """, [])
+        """,
+            [],
+        )

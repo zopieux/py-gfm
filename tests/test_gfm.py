@@ -7,18 +7,22 @@ from test_case import TestCase
 
 class TestGfm(TestCase):
     def test_indented_code(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p>foo</p>
         <pre><code>some code
         </code></pre>
         <p>bar</p>
-        """, """
+        """,
+            """
         foo
         
             some code
         
         bar
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )
 
     def test_fenced_code(self):
         test_text = """
@@ -26,35 +30,52 @@ class TestGfm(TestCase):
         some code
         ```
         """
-        extensions = ['gfm']
+        extensions = ["gfm"]
         if self.has_pygments:
-            self.assert_renders("""
+            self.assert_renders(
+                """
         <div class="highlight"><pre><span></span><code>some code
         </code></pre></div>
-        """, test_text, extensions)
+        """,
+                test_text,
+                extensions,
+            )
         else:
-            self.assert_renders("""
+            self.assert_renders(
+                """
         <pre class="highlight"><code>some code</code></pre>
-        """, test_text, extensions)
+        """,
+                test_text,
+                extensions,
+            )
 
     def test_nl2br(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p>foo<br />
         bar</p>
-        """, """
+        """,
+            """
         foo
         bar
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )
 
     def test_smart_emphasis(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p>foo__bar__baz</p>
-        """, """
+        """,
+            """
         foo__bar__baz
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )
 
     def test_table(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <table>
         <thead>
         <tr>
@@ -73,12 +94,15 @@ class TestGfm(TestCase):
         </tr>
         </tbody>
         </table>
-        """, """
+        """,
+            """
         First Header  | Second Header
         ------------- | -------------
         Content Cell  | Content Cell
         Content Cell  | Content Cell
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )
 
     def test_code_highlighting(self):
         test_text = """
@@ -86,49 +110,73 @@ class TestGfm(TestCase):
         def
         ```
         """
-        extensions = ['gfm']
+        extensions = ["gfm"]
 
         if self.has_pygments:
-            self.assert_renders("""
+            self.assert_renders(
+                """
         <div class="highlight"><pre><span></span><code><span class="k">def</span>
         </code></pre></div>
-        """, test_text, extensions)
+        """,
+                test_text,
+                extensions,
+            )
         else:
-            self.assert_renders("""
+            self.assert_renders(
+                """
         <pre class="highlight"><code class="language-python">def</code></pre>
-        """, test_text, extensions)
+        """,
+                test_text,
+                extensions,
+            )
 
     def test_semi_sane_lists(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <ul>
         <li>foo</li>
         </ul>
         <ol>
         <li>bar</li>
         </ol>
-        """, """
+        """,
+            """
         * foo
 
         1. bar
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )
 
     def test_autolink(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p><a href="http://foo.com/bar">http://foo.com/bar</a></p>
-        """, """
+        """,
+            """
         http://foo.com/bar
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )
 
     def test_automail(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p><a href="mailto:foo@bar.com">foo@bar.com</a></p>
-        """, """
+        """,
+            """
         foo@bar.com
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )
 
     def test_strikethrough(self):
-        self.assert_renders("""
+        self.assert_renders(
+            """
         <p>This is <del>struck</del>.</p>
-        """, """
+        """,
+            """
         This is ~~struck~~.
-        """, ['gfm'])
+        """,
+            ["gfm"],
+        )

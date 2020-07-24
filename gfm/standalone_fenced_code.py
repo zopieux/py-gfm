@@ -8,23 +8,26 @@ from markdown.extensions.fenced_code import FencedCodeExtension, FencedBlockPrep
 class StandaloneFencedCodeExtension(FencedCodeExtension):
     def __init__(self, **kwargs):
         self.config = {
-            'linenums': [False,
-                         "Use lines numbers. True=yes, False=no, None=auto"],
-            'guess_lang': [False,
-                           "Automatic language detection - Default: True"],
-            'css_class': ["highlight",
-                          "Set class name for wrapper <div> - "
-                          "Default: codehilite"],
-            'pygments_style': ['default',
-                               'Pygments HTML Formatter Style '
-                               '(Colorscheme) - Default: default'],
-            'noclasses': [False,
-                          'Use inline styles instead of CSS classes - '
-                          'Default false'],
-            'use_pygments': [True,
-                             'Use Pygments to Highlight code blocks. '
-                             'Disable if using a JavaScript library. '
-                             'Default: True']
+            "linenums": [False, "Use lines numbers. True=yes, False=no, None=auto"],
+            "guess_lang": [False, "Automatic language detection - Default: True"],
+            "css_class": [
+                "highlight",
+                "Set class name for wrapper <div> - " "Default: codehilite",
+            ],
+            "pygments_style": [
+                "default",
+                "Pygments HTML Formatter Style " "(Colorscheme) - Default: default",
+            ],
+            "noclasses": [
+                False,
+                "Use inline styles instead of CSS classes - " "Default false",
+            ],
+            "use_pygments": [
+                True,
+                "Use Pygments to Highlight code blocks. "
+                "Disable if using a JavaScript library. "
+                "Default: True",
+            ],
         }
         super().__init__(**kwargs)
 
@@ -34,4 +37,4 @@ class StandaloneFencedCodeExtension(FencedCodeExtension):
         processor = FencedBlockPreprocessor(md)
         processor.checked_for_codehilite = True
         processor.codehilite_conf = self.config
-        md.preprocessors.register(processor, 'fenced_code_block', 25)
+        md.preprocessors.register(processor, "fenced_code_block", 25)

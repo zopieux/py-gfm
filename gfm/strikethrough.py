@@ -29,7 +29,7 @@ Typical usage
 
 import markdown.inlinepatterns
 
-STRIKE_RE = r'(~{2})(.+?)(~{2})'  # ~~strike~~
+STRIKE_RE = r"(~{2})(.+?)(~{2})"  # ~~strike~~
 
 
 class StrikethroughExtension(markdown.Extension):
@@ -39,5 +39,7 @@ class StrikethroughExtension(markdown.Extension):
 
     def extendMarkdown(self, md):
         md.inlinePatterns.register(
-            markdown.inlinepatterns.SimpleTagPattern(STRIKE_RE, 'del'),
-            'gfm-strikethrough', 100)
+            markdown.inlinepatterns.SimpleTagPattern(STRIKE_RE, "del"),
+            "gfm-strikethrough",
+            100,
+        )
