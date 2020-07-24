@@ -1,4 +1,3 @@
-# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
@@ -26,15 +25,13 @@ please use :class:`mdx_gfm.GithubFlavoredMarkdownExtension`.
 """
 
 from markdown.extensions import Extension
-from markdown.extensions.fenced_code import FencedCodeExtension
-from markdown.extensions.smart_strong import SmartEmphasisExtension
 from markdown.extensions.tables import TableExtension
 
 import gfm
 
 
-def makeExtension(*args, **kwargs):
-    return PartialGithubFlavoredMarkdownExtension(*args, **kwargs)  # noqa
+def makeExtension(**kwargs):
+    return PartialGithubFlavoredMarkdownExtension(**kwargs)
 
 
 class PartialGithubFlavoredMarkdownExtension(Extension):
@@ -57,20 +54,14 @@ class PartialGithubFlavoredMarkdownExtension(Extension):
     .. _GFM documentation: https://guides.github.com/features/mastering-markdown/
     """
 
-    def extendMarkdown(self, md, md_globals):
+    def extendMarkdown(self, md):
         # Built-in extensions
-        FencedCodeExtension().extendMarkdown(md, md_globals)
-        SmartEmphasisExtension().extendMarkdown(md, md_globals)
-        TableExtension().extendMarkdown(md, md_globals)
+        TableExtension().extendMarkdown(md)
 
         # Custom extensions
-        gfm.AutolinkExtension().extendMarkdown(md, md_globals)
-        gfm.AutomailExtension().extendMarkdown(md, md_globals)
-        gfm.HiddenHiliteExtension([
-            ('guess_lang', 'False'),
-            ('css_class', 'highlight')
-        ]).extendMarkdown(md, md_globals)
-        gfm.SemiSaneListExtension().extendMarkdown(md, md_globals)
-        gfm.SpacedLinkExtension().extendMarkdown(md, md_globals)
-        gfm.StrikethroughExtension().extendMarkdown(md, md_globals)
-        gfm.TaskListExtension().extendMarkdown(md, md_globals)
+        gfm.AutolinkExtension().extendMarkdown(md)
+        gfm.AutomailExtension().extendMarkdown(md)
+        gfm.SemiSaneListExtension().extendMarkdown(md)
+        gfm.StandaloneFencedCodeExtension().extendMarkdown(md)
+        gfm.StrikethroughExtension().extendMarkdown(md)
+        gfm.TaskListExtension().extendMarkdown(md)

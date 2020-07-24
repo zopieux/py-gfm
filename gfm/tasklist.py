@@ -1,4 +1,3 @@
-# coding: utf-8
 # Copyright (c) 2016, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
@@ -178,25 +177,16 @@ Typical usage
 
 """
 
-from __future__ import unicode_literals
-
 import markdown
 from functools import reduce
 from markdown.treeprocessors import Treeprocessor
 from markdown.util import etree
 
-try:
-    _string_type = unicode
-except NameError:
-    _string_type = str
-
 
 def _to_list(obj):
-    if isinstance(obj, _string_type):
+    if isinstance(obj, str):
         return [obj]
-    if isinstance(obj, tuple):
-        return list(obj)
-    return obj
+    return list(obj)
 
 
 class TaskListProcessor(Treeprocessor):
@@ -305,7 +295,7 @@ class TaskListExtension(markdown.Extension):
            2. [ ] solve world hunger
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         self.config = {
             'ordered': [True, "Enable parsing of ordered lists"],
             'unordered': [True, "Enable parsing of unordered lists"],
@@ -320,8 +310,7 @@ class TaskListExtension(markdown.Extension):
             'checkbox_attrs': [{}, "Additional attribute dict (or callable) "
                                    "to add to the checkbox <input> element"],
         }
-        super(TaskListExtension, self).__init__(*args, **kwargs)
+        super().__init__(**kwargs)
 
-    def extendMarkdown(self, md, md_globals):
-        processor = TaskListProcessor(self)
-        md.treeprocessors.add('gfm-tasklist', processor, '_end')
+    def extendMarkdown(self, md):
+        md.treeprocessors.register(TaskListProcessor(self), 'gfm-tasklist', 100)

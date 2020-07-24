@@ -1,4 +1,3 @@
-codecov
-coverage
-coveralls
-unittest2
+codecov==2.1.8
+coverage==5.2.1
+unittest2==1.1.0

@@ -1,4 +1,3 @@
-# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
@@ -64,6 +63,6 @@ class SemiSaneListExtension(markdown.Extension):
     An extension that causes lists to be treated the same way GitHub does.
     """
 
-    def extendMarkdown(self, md, md_globals):
-        md.parser.blockprocessors['olist'] = SemiSaneOListProcessor(md.parser)
-        md.parser.blockprocessors['ulist'] = SemiSaneUListProcessor(md.parser)
+    def extendMarkdown(self, md):
+        md.parser.blockprocessors.register(SemiSaneOListProcessor(md.parser), 'olist', 41)
+        md.parser.blockprocessors.register(SemiSaneUListProcessor(md.parser), 'ulist', 31)

@@ -1,9 +1,6 @@
-# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
-
-from __future__ import unicode_literals
 
 import gfm
 from test_case import TestCase
@@ -11,7 +8,7 @@ from test_case import TestCase
 
 class TestSemiSaneLists(TestCase):
     def setUp(self):
-        self.semi_sane_lists = gfm.SemiSaneListExtension([])
+        self.semi_sane_lists = gfm.SemiSaneListExtension()
 
     def test_doesnt_join_ul_and_ol(self):
         self.assert_renders("""

@@ -1,4 +1,3 @@
-# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
@@ -10,20 +9,22 @@
 
 from gfm import autolink
 from gfm import automail
-from gfm import hidden_hilite
+from gfm import standalone_fenced_code
 from gfm import semi_sane_lists
-from gfm import spaced_link
 from gfm import strikethrough
 from gfm import tasklist
 
 AutolinkExtension = autolink.AutolinkExtension
 AutomailExtension = automail.AutomailExtension
-HiddenHiliteExtension = hidden_hilite.HiddenHiliteExtension
+StandaloneFencedCodeExtension = standalone_fenced_code.StandaloneFencedCodeExtension
 SemiSaneListExtension = semi_sane_lists.SemiSaneListExtension
-SpacedLinkExtension = spaced_link.SpacedLinkExtension
 StrikethroughExtension = strikethrough.StrikethroughExtension
 TaskListExtension = tasklist.TaskListExtension
 
-__all__ = ['AutolinkExtension', 'AutomailExtension', 'HiddenHiliteExtension',
-           'SemiSaneListExtension', 'SpacedLinkExtension',
-           'StrikethroughExtension', 'TaskListExtension']
+__all__ = ['AutolinkExtension', 'AutomailExtension', 'SemiSaneListExtension',
+           'StandaloneFencedCodeExtension', 'StrikethroughExtension', 'TaskListExtension']
+
+
+def makeExtension(**kwargs):
+    from mdx_gfm import GithubFlavoredMarkdownExtension
+    return GithubFlavoredMarkdownExtension(**kwargs)

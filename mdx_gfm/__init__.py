@@ -1,4 +1,3 @@
-# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
@@ -22,13 +21,17 @@ use a slightly different variant of GFM. For that, use
 .. _GFM documentation: https://guides.github.com/features/mastering-markdown/
 """
 
+# Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
 from markdown.extensions.nl2br import Nl2BrExtension
 
 from mdx_partial_gfm import PartialGithubFlavoredMarkdownExtension
 
 
-def makeExtension(*args, **kwargs):
-    return GithubFlavoredMarkdownExtension(*args, **kwargs)
+def makeExtension(**kwargs):
+    return GithubFlavoredMarkdownExtension(**kwargs)
 
 
 class GithubFlavoredMarkdownExtension(PartialGithubFlavoredMarkdownExtension):
@@ -48,7 +51,6 @@ class GithubFlavoredMarkdownExtension(PartialGithubFlavoredMarkdownExtension):
     .. _GFM documentation: https://guides.github.com/features/mastering-markdown/
     """
 
-    def extendMarkdown(self, md, md_globals):
-        PartialGithubFlavoredMarkdownExtension.extendMarkdown(self, md,
-                                                              md_globals)
-        Nl2BrExtension().extendMarkdown(md, md_globals)
+    def extendMarkdown(self, md):
+        PartialGithubFlavoredMarkdownExtension.extendMarkdown(self, md)
+        Nl2BrExtension().extendMarkdown(md)

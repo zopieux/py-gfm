@@ -1,29 +1,40 @@
-# coding: utf-8
 # Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
-
-from __future__ import unicode_literals
 
 from test_case import TestCase
 
 
 class TestGfm(TestCase):
+    def test_indented_code(self):
+        self.assert_renders("""
+        <p>foo</p>
+        <pre><code>some code
+        </code></pre>
+        <p>bar</p>
+        """, """
+        foo
+        
+            some code
+        
+        bar
+        """, ['gfm'])
+
     def test_fenced_code(self):
         test_text = """
         ```
-        foo
+        some code
         ```
         """
         extensions = ['gfm']
         if self.has_pygments:
             self.assert_renders("""
-        <div class="highlight"><pre><span></span>foo
-        </pre></div>
+        <div class="highlight"><pre><span></span><code>some code
+        </code></pre></div>
         """, test_text, extensions)
         else:
             self.assert_renders("""
-        <pre class="highlight"><code>foo</code></pre>
+        <pre class="highlight"><code>some code</code></pre>
         """, test_text, extensions)
 
     def test_nl2br(self):
@@ -69,9 +80,9 @@ class TestGfm(TestCase):
         Content Cell  | Content Cell
         """, ['gfm'])
 
-    def test_hilite(self):
+    def test_code_highlighting(self):
         test_text = """
-        ```.python
+        ```python
         def
         ```
         """
@@ -79,8 +90,8 @@ class TestGfm(TestCase):
 
         if self.has_pygments:
             self.assert_renders("""
-        <div class="highlight"><pre><span></span><span class="k">def</span>
-        </pre></div>
+        <div class="highlight"><pre><span></span><code><span class="k">def</span>
+        </code></pre></div>
         """, test_text, extensions)
         else:
             self.assert_renders("""
@@ -120,11 +131,4 @@ class TestGfm(TestCase):
         <p>This is <del>struck</del>.</p>
         """, """
         This is ~~struck~~.
-        """, ['gfm'])
-
-    def test_spaced_link(self):
-        self.assert_renders("""
-        <p><a href="href">text</a></p>
-        """, """
-        [text] (href)
         """, ['gfm'])
