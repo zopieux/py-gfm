@@ -31,7 +31,7 @@ All-in-one extension
    Hello, *world*! This is a ~~good~~marvelous day!
    Here is an auto link: https://example.org/
 
-   Le me introduce you to [task lists] (https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments):
+   Le me introduce you to [task lists](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments):
 
    - [ ] eggs
    - [x] milk
@@ -44,8 +44,8 @@ All-in-one extension
    """
 
    # Direct conversion
-   html = markdown.markdown(source,
-                            extensions=[GithubFlavoredMarkdownExtension()])
+   html = markdown.markdown(
+       source, extensions=[GithubFlavoredMarkdownExtension()])
 
    # Factory-like
    md = markdown.Markdown(extensions=[GithubFlavoredMarkdownExtension()])
@@ -60,9 +60,9 @@ All-in-one extension
    import markdown
    from gfm import AutolinkExtension, TaskListExtension
 
-   html = markdown.markdown(source,
-                            extensions=[AutolinkExtension(),
-                                        TaskListExtension(max_depth=2)])
+   html = markdown.markdown(
+       source, extensions=[AutolinkExtension(),
+                           TaskListExtension(max_depth=2)])
 
 Available extensions
 --------------------
@@ -92,7 +92,6 @@ Supported features
    ``www`` subdomains)
 -  Code highlighting (dummy, no actual syntactic coloration as-is)
 -  Mixed-style lists with no separation
--  Links and images with whitespace
 -  Strikethrough
 -  Task lists
 
@@ -124,6 +123,6 @@ Indices and tables
 .. _GitHub-Flavored Markdown: https://github.github.com/github-flavored-markdown/
 .. _Markdown: https://pythonhosted.org/Markdown/
 
-.. |Build status| image:: https://travis-ci.org/Zopieux/py-gfm.svg?branch=master
+.. |Build status| image:: https://github.com/Zopieux/py-gfm/workflows/Test%20with%20coverage,%20package,%20lint/badge.svg
 .. |Coverage status| image:: https://coveralls.io/repos/github/Zopieux/py-gfm/badge.svg?branch=master
 .. |Documentation status| image:: https://readthedocs.org/projects/py-gfm/badge/?version=latest
