@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    name: "Test with coverage on Python ${{ matrix.python-version }} (with Pygments: ${{ matrix.pygments }})"
+    name: "Test Python ${{ matrix.python-version }} ⋅ Pygments: ${{ matrix.pygments }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
