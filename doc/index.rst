@@ -126,6 +126,10 @@ Indices and tables
 .. _GitHub-Flavored Markdown: https://github.github.com/github-flavored-markdown/
 .. _Markdown: https://pythonhosted.org/Markdown/
 
-.. |Build status| image:: https://github.com/Zopieux/py-gfm/workflows/Test%20with%20coverage,%20package,%20lint/badge.svg
+.. |Build status| image:: https://github.com/Zopieux/py-gfm/workflows/Test%20and%20package/badge.svg
+   :target: https://github.com/Zopieux/py-gfm/actions?query=workflow%3A%22Test+and+package%22
+   :alt: Build status
 .. |Coverage status| image:: https://coveralls.io/repos/github/Zopieux/py-gfm/badge.svg?branch=master
+   :target: https://coveralls.io/github/Zopieux/py-gfm?branch=master
+   :alt: Coverage status
 .. |Documentation status| image:: https://readthedocs.org/projects/py-gfm/badge/?version=latest

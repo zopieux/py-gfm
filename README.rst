@@ -53,8 +53,8 @@ BSD-style. See `LICENSE`_.
 .. _`the docs`: https://py-gfm.readthedocs.org/#unsupported-features
 .. _`own implementation`: https://github.com/github/cmark-gfm
 
-.. |Build status| image:: https://travis-ci.org/Zopieux/py-gfm.svg?branch=master
-   :target: https://travis-ci.org/Zopieux/py-gfm
+.. |Build status| image:: https://github.com/Zopieux/py-gfm/workflows/Test%20and%20package/badge.svg
+   :target: https://github.com/Zopieux/py-gfm/actions?query=workflow%3A%22Test+and+package%22
    :alt: Build status
 .. |Coverage status| image:: https://coveralls.io/repos/github/Zopieux/py-gfm/badge.svg?branch=master
    :target: https://coveralls.io/github/Zopieux/py-gfm?branch=master
