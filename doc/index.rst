@@ -38,19 +38,21 @@ All-in-one extension
 
    You can also have fenced code blocks:
 
-   ```
+   ```python
    import this
    ```
    """
 
-   # Direct conversion
+   # Direct conversion:
    html = markdown.markdown(
        source, extensions=[GithubFlavoredMarkdownExtension()])
 
-   # Factory-like
+   # Factory-like:
    md = markdown.Markdown(extensions=[GithubFlavoredMarkdownExtension()])
    html = md.convert(source)
 
+   # By module name (not recommended if you need custom configs):
+   html = markdown.markdown(source, extensions=['mdx_gfm'])
 
 À la carte
 ~~~~~~~~~~
@@ -90,28 +92,29 @@ Supported features
 -  Tables
 -  Hyperlink parsing (``http``, ``https``, ``ftp``, ``email`` and
    ``www`` subdomains)
--  Code highlighting (dummy, no actual syntactic coloration as-is)
+-  Code highlighting for code blocks if Pygments_ is available
 -  Mixed-style lists with no separation
 -  Strikethrough
 -  Task lists
 
+.. _Pygments: https://pypi.org/project/Pygments/
+
 Unsupported features
 --------------------
 
-This implementation does not support all of GFM features.
+This implementation does not support all of GFM features and has known
+differences in how rendering is done.
 
-By design
-~~~~~~~~~
+-  By design, link to commits, issues, pull requests and user profiles are not
+   supported since this is application specific. Feel free to subclass the
+   provided classes to implement your own logic.
+-  There is no emoji support.
+-  There is no horizontal rule (``---`` ie. ``<hr>``) support.
+-  Nested lists are not behaving exactly like GitHub's: `issue #10`_.
+-  Contrary to GitHub, only double-tilde'd text renders strikethrough, not single-tile'd: `issue #14`_.
 
--  Link to commits, issues, pull requests and user profiles: this is
-   application specific. Feel free to subclass the provided classes to
-   implement your own logic.
-
-Planned
-~~~~~~~
-
--  Horizontal rules
--  Emojis
+.. _`issue #10`: https://github.com/Zopieux/py-gfm/issues/10
+.. _`issue #14`: https://github.com/Zopieux/py-gfm/issues/14
 
 Indices and tables
 ------------------

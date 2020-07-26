@@ -1,3 +1,13 @@
+## 1.0.0
+
+This major revision **is not backward compatible** and introduces **subtle rendering diffs**.
+
+* Replace Markdown < 3.0 support with Markdown >= 3.0 support.
+* Drop support for Python 2 since Markdown >= 3.2 [drops it](https://python-markdown.github.io/change_log/release-3.2/) too.
+* Remove support for space links (space between `[text]` and `(url)`) that does not seem to be supported in upstream GFM anymore.
+* Refactor code syntax highlighting support. Module `hidden_hilite` is removed. This introduces minor HTML structure changes (new `<code>` tags and different `class=`) for both indented and fenced code blocks.
+* *Meta*: continuous integration (CI) for testing is now handled by GitHub Actions instead of Travis.
+
 ## 0.1.4
 
 * No feature change.
