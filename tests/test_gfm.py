@@ -21,7 +21,7 @@ class TestGfm(TestCase):
         
         bar
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )
 
     def test_fenced_code(self):
@@ -30,7 +30,7 @@ class TestGfm(TestCase):
         some code
         ```
         """
-        extensions = ["gfm"]
+        extensions = ["mdx_gfm"]
         if self.has_pygments:
             self.assert_renders(
                 """
@@ -59,7 +59,7 @@ class TestGfm(TestCase):
         foo
         bar
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )
 
     def test_smart_emphasis(self):
@@ -70,7 +70,7 @@ class TestGfm(TestCase):
             """
         foo__bar__baz
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )
 
     def test_table(self):
@@ -101,7 +101,7 @@ class TestGfm(TestCase):
         Content Cell  | Content Cell
         Content Cell  | Content Cell
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )
 
     def test_code_highlighting(self):
@@ -110,7 +110,7 @@ class TestGfm(TestCase):
         def
         ```
         """
-        extensions = ["gfm"]
+        extensions = ["mdx_gfm"]
 
         if self.has_pygments:
             self.assert_renders(
@@ -145,7 +145,7 @@ class TestGfm(TestCase):
 
         1. bar
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )
 
     def test_autolink(self):
@@ -156,7 +156,7 @@ class TestGfm(TestCase):
             """
         http://foo.com/bar
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )
 
     def test_automail(self):
@@ -167,7 +167,7 @@ class TestGfm(TestCase):
             """
         foo@bar.com
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )
 
     def test_strikethrough(self):
@@ -178,5 +178,5 @@ class TestGfm(TestCase):
             """
         This is ~~struck~~.
         """,
-            ["gfm"],
+            ["mdx_gfm"],
         )

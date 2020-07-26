@@ -29,9 +29,3 @@ __all__ = [
     "StrikethroughExtension",
     "TaskListExtension",
 ]
-
-
-def makeExtension(**kwargs):
-    from mdx_gfm import GithubFlavoredMarkdownExtension
-
-    return GithubFlavoredMarkdownExtension(**kwargs)

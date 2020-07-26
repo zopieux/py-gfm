@@ -1,4 +1,4 @@
-name: "Test with coverage, package, lint"
+name: "Test and package"
 
 on:
   push:
@@ -6,9 +6,10 @@ on:
 
 jobs:
   test:
-    name: "Test and coverage on Python ${{ matrix.python-version }} (with Pygments: ${{ matrix.pygments }})"
+    name: "Test with coverage on Python ${{ matrix.python-version }} (with Pygments: ${{ matrix.pygments }})"
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: [3.5, 3.6, 3.7, 3.8]
         pygments: ['yes', 'no']
