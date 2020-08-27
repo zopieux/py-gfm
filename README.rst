@@ -46,11 +46,11 @@ License
 
 BSD-style. See `LICENSE`_.
 
-.. _GitHub-Flavored Markdown: http://github.github.com/github-flavored-markdown/
-.. _Markdown: https://pythonhosted.org/Markdown/
-.. _Read the Docs: https://py-gfm.readthedocs.org/
+.. _GitHub-Flavored Markdown: https://docs.github.com/en/github/writing-on-github
+.. _Markdown: https://python-markdown.github.io/
+.. _Read the Docs: https://py-gfm.readthedocs.io/
 .. _LICENSE: /LICENSE
-.. _`the docs`: https://py-gfm.readthedocs.org/#unsupported-features
+.. _`the docs`: https://py-gfm.readthedocs.io/#unsupported-features
 .. _`own implementation`: https://github.com/github/cmark-gfm
 
 .. |Build status| image:: https://github.com/Zopieux/py-gfm/workflows/Test%20and%20package/badge.svg
