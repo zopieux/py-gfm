@@ -29,12 +29,12 @@ class StandaloneFencedCodeExtension(FencedCodeExtension):
                 "Default: True",
             ],
         }
-        super().__init__(**kwargs)
+        super().setConfigs(kwargs)
 
     def extendMarkdown(self, md):
         """ Add FencedBlockPreprocessor to the Markdown instance. """
         md.registerExtension(self)
-        processor = FencedBlockPreprocessor(md)
+        processor = FencedBlockPreprocessor(md, self.config)
         processor.checked_for_codehilite = True
-        processor.codehilite_conf = self.config
+        processor.codehilite_conf = self.getConfigs()
         md.preprocessors.register(processor, "fenced_code_block", 25)
