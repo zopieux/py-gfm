@@ -43,7 +43,8 @@ class TestGfm(TestCase):
         else:
             self.assert_renders(
                 """
-        <pre class="highlight"><code>some code</code></pre>
+        <pre class="highlight"><code>some code
+        </code></pre>
         """,
                 test_text,
                 extensions,
@@ -124,7 +125,8 @@ class TestGfm(TestCase):
         else:
             self.assert_renders(
                 """
-        <pre class="highlight"><code class="language-python">def</code></pre>
+        <pre class="highlight"><code class="language-python">def
+        </code></pre>
         """,
                 test_text,
                 extensions,
