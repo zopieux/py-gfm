@@ -2,6 +2,8 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+import markdown
+
 from test_case import TestCase
 
 
@@ -41,12 +43,17 @@ class TestGfm(TestCase):
                 extensions,
             )
         else:
-            self.assert_renders(
-                """
+            if markdown.__version_info__ >= (3, 3):
+                expected_text = """
+        <pre class="highlight"><code>some code
+        </code></pre>
+        """
+            else:
+                expected_text = """
         <pre class="highlight"><code>some code</code></pre>
-        """,
-                test_text,
-                extensions,
+        """
+            self.assert_renders(
+                expected_text, test_text, extensions,
             )
 
     def test_nl2br(self):
@@ -112,23 +119,29 @@ class TestGfm(TestCase):
         """
         extensions = ["mdx_gfm"]
 
+        # Markdown 3.3+ introduces a new line. *sigh*
+        new_line = ""
+        if markdown.__version_info__[:2] >= (3, 3):
+            new_line = "\n"
+
+        # Markdown 3.3 adds the language to the class but it's reverted
+        # in 3.3.1. *sigh*
+        code_class = ""
+        if markdown.__version_info__[:3] == (3, 3, 0):
+            code_class = "python "
+
         if self.has_pygments:
-            self.assert_renders(
-                """
-        <div class="highlight"><pre><span></span><code><span class="k">def</span>
+            expected_text = """
+        <div class="{code_class}highlight"><pre><span></span><code><span class="k">def</span>
         </code></pre></div>
-        """,
-                test_text,
-                extensions,
-            )
+        """
         else:
-            self.assert_renders(
-                """
-        <pre class="highlight"><code class="language-python">def</code></pre>
-        """,
-                test_text,
-                extensions,
-            )
+            expected_text = """
+        <pre class="{code_class}highlight"><code class="language-python">def{new_line}</code></pre>
+        """
+
+        expected_text = expected_text.format(new_line=new_line, code_class=code_class)
+        self.assert_renders(expected_text, test_text, extensions)
 
     def test_semi_sane_lists(self):
         self.assert_renders(

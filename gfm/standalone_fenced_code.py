@@ -2,6 +2,8 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+import markdown
+
 from markdown.extensions.fenced_code import FencedCodeExtension, FencedBlockPreprocessor
 
 
@@ -29,12 +31,21 @@ class StandaloneFencedCodeExtension(FencedCodeExtension):
                 "Default: True",
             ],
         }
-        super().__init__(**kwargs)
+        # Markdown 3.3 introduced a breaking change.
+        if markdown.__version_info__ >= (3, 3):
+            super().setConfigs(kwargs)
+        else:
+            super().__init__(**kwargs)
 
     def extendMarkdown(self, md):
         """ Add FencedBlockPreprocessor to the Markdown instance. """
         md.registerExtension(self)
-        processor = FencedBlockPreprocessor(md)
-        processor.checked_for_codehilite = True
-        processor.codehilite_conf = self.config
+        # Markdown 3.3 introduced a breaking change.
+        if markdown.__version_info__ >= (3, 3):
+            processor = FencedBlockPreprocessor(md, self.config)
+            processor.codehilite_conf = self.getConfigs()
+        else:
+            processor = FencedBlockPreprocessor(md)
+            processor.checked_for_codehilite = True
+            processor.codehilite_conf = self.config
         md.preprocessors.register(processor, "fenced_code_block", 25)
