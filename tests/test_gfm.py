@@ -2,6 +2,8 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+import markdown
+
 from test_case import TestCase
 
 
@@ -41,13 +43,17 @@ class TestGfm(TestCase):
                 extensions,
             )
         else:
-            self.assert_renders(
-                """
+            if markdown.__version_info__ >= (3, 3):
+                expected_text = """
         <pre class="highlight"><code>some code
         </code></pre>
-        """,
-                test_text,
-                extensions,
+        """
+            else:
+                expected_text = """
+        <pre class="highlight"><code>some code</code></pre>
+        """
+            self.assert_renders(
+                expected_text, test_text, extensions,
             )
 
     def test_nl2br(self):
@@ -123,13 +129,17 @@ class TestGfm(TestCase):
                 extensions,
             )
         else:
-            self.assert_renders(
-                """
+            if markdown.__version_info__ >= (3, 3):
+                expected_text = """
         <pre class="highlight"><code class="language-python">def
         </code></pre>
-        """,
-                test_text,
-                extensions,
+        """
+            else:
+                expected_text = """
+        <pre class="highlight"><code class="language-python">def</code></pre>
+        """
+            self.assert_renders(
+                expected_text, test_text, extensions,
             )
 
     def test_semi_sane_lists(self):
