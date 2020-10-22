@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Fix compatibility for Markdown 3.3.1 and up.
+
 ## 1.0.0
 
 This major revision **is not backward compatible** and introduces **subtle rendering diffs**.

@@ -5,7 +5,7 @@ with open("README.rst") as f:
 
 setup(
     name="py-gfm",
-    version="1.0.0",
+    version="1.0.1",
     description="An implementation of Github-Flavored Markdown written as an "
     "extension to the Python Markdown library.",
     long_description=long_description,
