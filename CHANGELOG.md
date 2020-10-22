@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Remove LICENSE from the package files to prevent issue #23.
+
 ## 1.0.1
 
 * Fix compatibility for Markdown 3.3.1 and up.
