@@ -1,6 +1,23 @@
 GitHub-Flavored Markdown for Python
 ===================================
 
+**PLEASE READ BEFORE USING:**
+**This repository will not receive bug fixes, and might become read-only soon.**
+
+Rationale: this library has well-known `consistency issues`_ with GitHub-Flavored Markdown rendering. Fixing
+them would require time investment the maintainer cannot provide. The maintainer is also fatigued by
+Markdown's library constantly breaking their internal API with each minor release.
+
+**Consider instead using** |pycmarkgfm|_ (PyPi_), a lightweight Python 3.5+ wrapper for GitHub's 
+own implementation of GFM from the same author,
+which is faster, virtually byte-compatible with GitHub rendering,
+and provides a nice API for managing task lists aka. TODO lists.
+
+.. _`consistency issues`: https://github.com/Zopieux/py-gfm/issues?q=is%3Aissue+is%3Aopen+label%3Aconformance
+.. _pycmarkgfm: https://github.com/Zopieux/pycmarkgfm
+.. |pycmarkgfm| replace:: **pycmarkgfm**
+.. _PyPi: https://pypi.org/project/pycmarkgfm/
+
 |Build status| |Coverage status| |Documentation status|
 
 This is an implementation of `GitHub-Flavored Markdown`_ written as an
