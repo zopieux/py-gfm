@@ -180,7 +180,7 @@ Typical usage
 import markdown
 from functools import reduce
 from markdown.treeprocessors import Treeprocessor
-from markdown.util import etree
+import xml.etree.ElementTree as etree
 
 
 def _to_list(obj):
