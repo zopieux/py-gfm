@@ -38,7 +38,7 @@ class StandaloneFencedCodeExtension(FencedCodeExtension):
             super().__init__(**kwargs)
 
     def extendMarkdown(self, md):
-        """ Add FencedBlockPreprocessor to the Markdown instance. """
+        """Add FencedBlockPreprocessor to the Markdown instance."""
         md.registerExtension(self)
         # Markdown 3.3 introduced a breaking change.
         if markdown.__version_info__ >= (3, 3):

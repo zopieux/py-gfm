@@ -53,7 +53,9 @@ class TestGfm(TestCase):
         <pre class="highlight"><code>some code</code></pre>
         """
             self.assert_renders(
-                expected_text, test_text, extensions,
+                expected_text,
+                test_text,
+                extensions,
             )
 
     def test_nl2br(self):
