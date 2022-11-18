@@ -1,3 +1,7 @@
+## 2.0.0
+
+* Bump Markdown version to ≥3.3 and Python version to ≥3.8.
+
 ## 1.0.2
 
 * Remove LICENSE from the package files to prevent issue #23.

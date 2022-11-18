@@ -5,7 +5,7 @@ with open("README.rst") as f:
 
 setup(
     name="py-gfm",
-    version="1.0.2",
+    version="2.0.0",
     description="An implementation of Github-Flavored Markdown written as an "
     "extension to the Python Markdown library.",
     long_description=long_description,
@@ -16,7 +16,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=["markdown>=3.3,<4"],
-    python_requires=">=3.7",
+    python_requires=">=3.8",
     classifiers=[
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
@@ -24,9 +24,9 @@ setup(
         "Topic :: Text Processing :: Markup",
         "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
     ],
 )
