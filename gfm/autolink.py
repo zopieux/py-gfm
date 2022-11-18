@@ -44,11 +44,11 @@ import markdown
 import xml.etree.ElementTree as etree
 
 URL_RE = (
-    r"(?i)\b((?:(?:ftp|https?)://|www\d{0,3}[.])(?:[^\s()<>]+|"
+    r"\b((?:(?i:ftp|https?)://|(?i:www)\d{0,3}[.])(?:[^\s()<>]+|"
     r"\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()"
     r"<>]+\)))*\)|[^\s`!()\[\]{};:" + r"'" + r'".,<>?«»“”‘’]))'
 )
-PROTOCOL_RE = re.compile(r"^(ftp|https?)://", re.IGNORECASE)
+PROTOCOL_RE = re.compile(r"^(?i:ftp|https?)://")
 
 
 # We can't re-use the built-in AutolinkPattern because we need to add protocols

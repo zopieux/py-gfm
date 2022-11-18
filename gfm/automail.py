@@ -30,7 +30,7 @@ import markdown
 import markdown.inlinepatterns
 import xml.etree.ElementTree as etree
 
-MAIL_RE = r"\b(?i)([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]+)\b"
+MAIL_RE = r"\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+)\b"
 
 
 # We can't re-use the built-in AutomailPattern because we need to add mailto:.
