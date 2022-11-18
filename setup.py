@@ -15,8 +15,8 @@ setup(
     url="https://github.com/zopieux/py-gfm",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["markdown~=3.2"],
-    python_requires=">=3.5",
+    install_requires=["markdown>=3.3,<4"],
+    python_requires=">=3.7",
     classifiers=[
         "Environment :: Web Environment",
         "Intended Audience :: Developers",

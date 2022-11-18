@@ -1,8 +1,8 @@
 default_language_version:
-  python: python3.5
+  python: python3.10
 
 repos:
   - repo: https://github.com/python/black
-    rev: 19.10b0
+    rev: 22.10.0
     hooks:
       - id: black
